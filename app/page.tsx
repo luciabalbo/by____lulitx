@@ -45,8 +45,9 @@ export default function LulitxStepOneFixed() {
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
             className={styles['the-card']}
           >
-            <div className={styles['metal-finish']} />
-            <div className={styles.shine} />
+            <div className={styles['metal-finish']}>
+              <div className={styles.shine} />
+            </div>
             <div className={styles['card-body']} style={{ transform: "translateZ(40px)" }}>
               <span className={styles['tag-label']}>ACCESS VIP</span>
               <h2 className={styles.name}>by____lulitx</h2>
