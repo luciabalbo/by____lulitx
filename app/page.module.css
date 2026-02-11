@@ -1,19 +1,21 @@
+/* 1. RESET Y ESTRUCTURA BASE */
 .main-viewport {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: #000;
   overflow: hidden;
   color: white;
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-mono), monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-viewport::before {
   content: "";
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.04; /* Súper sutil */
+  opacity: 0.04;
   z-index: 1;
   pointer-events: none;
   background-image: url('https://grainy-gradients.vercel.app/noise.svg');
@@ -23,14 +25,13 @@
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 80vw; /* Más grande */
-  height: 80vh;
-  /* Subimos la opacidad a 0.15 y ensanchamos el radio */
-  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0) 70%);
+  width: 80vw; height: 80vh;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 70%);
   pointer-events: none;
   z-index: 0;
 }
 
+/* 2. LAYERS ABSOLUTOS */
 .absolute-layer {
   position: absolute;
   left: 0; right: 0;
@@ -40,137 +41,163 @@
   pointer-events: none;
 }
 
-.top-edge { top: 60px; height: 20px; }
-.bottom-edge { bottom: 60px; height: 20px; }
-.center-axis { top: 0; bottom: 0; z-index: 10; pointer-events: auto; }
-
-.side-text, 
-.centered-text, 
-.tag-label, 
-.edition, 
-.join-button {
-  font-family: var(--font-mono), monospace;
+.top-edge { top: 60px; }
+.bottom-edge { bottom: 60px; }
+.center-axis { 
+  top: 0; bottom: 0; 
+  z-index: 10; 
+  pointer-events: none;
 }
 
-.side-text {
-  position: absolute; /* Esto es vital */
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 9px;
-  letter-spacing: 0.25em;
-  line-height: 2;
-  text-transform: uppercase;
-  width: auto;
-  white-space: nowrap;
+/* 3. CARD 3D */
+.card-perspective { 
+  perspective: 1200px; 
+  pointer-events: none;
 }
 
-/* Anclajes físicos */
-.left-txt { 
-  left: 40px; 
-  text-align: left; 
-}
-
-.right-txt { 
-  right: 40px; 
-  text-align: right; 
-}
-
-.centered-text {
-  font-size: 10px;
-  letter-spacing: 1.2em;
-  text-indent: 1.2em;
-  font-weight: 900;
-  text-align: center;
-}
-
-.card-perspective { perspective: 1200px; }
 .the-card {
   width: 380px; height: 240px;
   position: relative;
   transform-style: preserve-3d;
-  pointer-events: auto;
-  border-radius: 32px;
+  pointer-events: auto !important;
 }
 
-.shine {
+.card-front, .card-back {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: skewX(-25deg);
-  pointer-events: none;
-}
-
-/* El efecto de hover ahora lo disparamos desde la card hacia el shine */
-.the-card:hover .shine {
-  left: 160%;
-  transition: left 0.8s ease-in-out;
-}
-
-.metal-finish {
-  position: absolute; 
   inset: 0;
-  /* Degradado con más puntos de luz para simular metal */
-  background: linear-gradient(145deg, #ffffff 0%, #e0e0e0 45%, #c0c0c0 50%, #e0e0e0 55%, #b0b0b0 100%);
+  width: 100%; height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: 32px;
-  box-shadow: 
-    0 30px 60px rgba(0,0,0,0.7),
-    inset 0 0 15px rgba(255,255,255,0.5);
+}
+
+/* 4. CARA FRONTAL */
+.metal-finish {
+  position: absolute; inset: 0;
+  background: linear-gradient(145deg, #fff 0%, #e0e0e0 45%, #c0c0c0 50%, #e0e0e0 55%, #b0b0b0 100%);
+  border-radius: 32px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
   overflow: hidden;
 }
 
-.card-body { position: relative; padding: 40px; }
-.tag-label {
-  font-size: 9px;
-  letter-spacing: 0.5em;
-  color: #555; /* Un gris más sutil */
-  font-weight: 700;
+.shine {
+  position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-25deg);
 }
 
-.name {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 38px; /* Lo subí un poquito */
-  font-weight: 900; 
-  font-style: italic;
-  color: #000;
-  margin: 0;
-  letter-spacing: -0.04em; /* Toque de diseño */
-  text-transform: lowercase; /* Queda muy aesthetic en minúsculas */
+.the-card:hover .shine {
+  left: 160%; transition: left 0.8s ease-in-out;
 }
+
+.card-body { position: relative; padding: 40px; }
+
+.name {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 22px;
+  letter-spacing: -0.05em;
+  background: linear-gradient(to bottom, #000 20%, #444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.tag-label { font-size: 9px; letter-spacing: 0.5em; color: #555; font-weight: 700; }
 .edition { font-size: 10px; letter-spacing: 0.1em; color: #444; font-weight: 700; margin-top: 15px; }
 
 .join-button {
   position: absolute; 
-  bottom: -25px; 
-  left: 50%;
-  width: 70%; /* Un poquito más corto para que no toque los bordes */
+  bottom: -25px; left: 50%;
+  width: 70%;
   background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px); /* Efecto blur detrás */
+  backdrop-filter: blur(10px);
   color: #fff;
   border: 1px solid rgba(255,255,255,0.2); 
   padding: 18px;
   border-radius: 12px; 
-  font-size: 10px; 
-  font-weight: 900; 
-  letter-spacing: 0.5em;
-  cursor: pointer; 
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
+  font-size: 10px; font-weight: 900; letter-spacing: 0.5em;
+  cursor: pointer; transition: all 0.3s ease;
 }
 
-.join-button:hover {
-  background: #fff;
-  color: #000;
-  transform: translateZ(60px) translateX(-50%) scale(1.05); /* Se agranda al pasar el mouse */
+/* 5. CARA TRASERA (VIDRIO) */
+.card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
 }
 
-@media (max-width: 1100px) {
-  .side-text { display: none; }
+.back-content {
+  display: flex; flex-direction: column; align-items: center; width: 85%;
+  pointer-events: auto;
 }
+
+.back-title {
+  font-family: var(--font-syne);
+  font-size: 14px;
+  letter-spacing: 1em;
+  text-indent: 1em;
+  color: #fff;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+.email-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px;
+  width: 100%;
+  max-width: 240px;
+  margin-bottom: 20px;
+  text-align: center;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.submit-btn {
+  background: white; color: black; border: none;
+  padding: 12px 30px; border-radius: 8px; font-weight: 900;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; position: relative; overflow: hidden;
+}
+
+.submit-btn:disabled::after {
+  content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: scan 1.2s infinite;
+}
+
+@keyframes scan { 100% { left: 100%; } }
+
+.back-link {
+  font-size: 8px; margin-top: 20px; cursor: pointer; opacity: 0.5; letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* 6. TEXTOS Y ÉXITO */
+.side-text {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  font-size: 9px; letter-spacing: 0.25em; line-height: 2; text-transform: uppercase;
+}
+
+.left-txt { left: 40px; }
+.right-txt { right: 40px; text-align: right; }
+
+.centered-text {
+  font-size: 10px; letter-spacing: 1.2em; text-indent: 1.2em; font-weight: 900;
+}
+
+.success-container { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.success-title { font-family: var(--font-syne); font-weight: 800; font-size: 28px; font-style: italic; }
+.success-text { font-size: 10px; letter-spacing: 0.4em; opacity: 0.6; margin-top: 10px; }
+.success-line { width: 50px; height: 1px; background: white; margin-top: 30px; }
+
+@media (max-width: 1100px) { .side-text { display: none; } }
