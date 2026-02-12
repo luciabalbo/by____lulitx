@@ -66,9 +66,10 @@
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
   border-radius: 32px;
+  overflow: hidden; /* Importante para los brillos */
 }
 
 /* 4. CARA FRONTAL */
@@ -77,7 +78,6 @@
   background: linear-gradient(145deg, #fff 0%, #e0e0e0 45%, #c0c0c0 50%, #e0e0e0 55%, #b0b0b0 100%);
   border-radius: 32px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-  overflow: hidden;
 }
 
 .shine {
@@ -109,7 +109,7 @@
 
 .join-button {
   position: absolute; 
-  bottom: -25px; left: 50%;
+  bottom: 30px; left: 50%;
   width: 70%;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
@@ -118,7 +118,9 @@
   padding: 18px;
   border-radius: 12px; 
   font-size: 10px; font-weight: 900; letter-spacing: 0.5em;
-  cursor: pointer; transition: all 0.3s ease;
+  cursor: pointer; 
+  transition: all 0.3s ease;
+  transform: translateX(-50%); /* Fix de centrado */
 }
 
 /* 5. CARA TRASERA (VIDRIO) */
@@ -127,11 +129,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .back-content {
@@ -150,7 +151,7 @@
 }
 
 .email-input {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   padding: 12px;
