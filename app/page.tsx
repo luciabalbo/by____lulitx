@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRouter } from 'next/navigation'; // Importamos el navegador
 import styles from './page.module.css';
 
 export default function LulitxStepOneFixed() {
+  const router = useRouter(); // Inicializamos el router
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +25,6 @@ export default function LulitxStepOneFixed() {
     y.set((event.clientY - rect.top) / rect.height - 0.5);
   }
 
-  // --- FUNCIÓN CONECTADA A LA API ---
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -42,17 +43,26 @@ export default function LulitxStepOneFixed() {
 
       if (response.ok) {
         setIsSubmitted(true);
+        
+        // --- LA TRANSICIÓN DIRECTIVA ---
+        // Esperamos 1.5s para que el usuario vea el feedback de "SUCCESS" 
+        // antes de ser teletransportado al archivo.
+        setTimeout(() => {
+          router.push('/archive'); 
+        }, 1500);
+
       } else {
-        // Esto salta si el mail ya existe o hay error de validación
         alert(data.message || "Error en el registro");
       }
     } catch (err) {
       console.error("Error conectando a la API:", err);
-      alert("Error de conexión. ¿Tenés la API activa?");
+      alert("Error de conexión.");
     } finally {
       setIsLoading(false);
     }
   };
+
+  // ... (aquí sigue el resto de tu return con el diseño de la tarjeta)
 
   return (
     <div className={styles['main-viewport']}>
