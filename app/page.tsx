@@ -76,7 +76,7 @@ export default function LulitxStepOneFixed() {
       // AHORA SÍ: Como el código es correcto, validamos el acceso y guardamos el ID que ya teníamos en el estado
       localStorage.setItem('lulitx_user_id', visitorId);
       setIsSubmitted(true);
-      setTimeout(() => { router.push('/archive'); }, 2000);
+      setTimeout(() => { router.push('/archive'); }, 5000);
     }
   };
 
@@ -146,13 +146,13 @@ export default function LulitxStepOneFixed() {
                         </motion.form>
                       ) : (
                         <motion.div key="challenge" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                          <h3 className={styles['back-title']} style={{ color: '#ffde00' }}>ALREADY VIP</h3>
-                          <p style={{ fontFamily: 'monospace', fontSize: '10px', color: '#888', marginBottom: '15px' }}>ENTER ACCESS CODE: 404</p>
+                          <h3 className={styles['back-title']} style={{ color: '#ffde00' }}>VOS YA SOS VIP</h3>
+                          <p style={{ fontFamily: 'monospace', fontSize: '10px', color: '#888', marginBottom: '15px' }}>CÓDIGO DE ACCESO: 404</p>
                           <input 
                             type="text" maxLength={3} placeholder="_ _ _" value={accessCode} onChange={handleCodeChange}
                             className={styles['email-input']} autoFocus style={{ textAlign: 'center', fontSize: '24px', letterSpacing: '8px' }}
                           />
-                          <p className={styles['status-log']}>AWAITING_RE_ENTRY_PROTOCOL...</p>
+                          <p className={styles['status-log']}>NO_TRAICIONA_EL_QUE_TE_AVISA...</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -164,8 +164,9 @@ export default function LulitxStepOneFixed() {
                 <div className={styles['id-badge']}>ENTRY_LOG_ID: {visitorId}</div>
                 <h2 className={styles['success-title']}>IDENTITY VERIFIED.</h2>
                 <p className={styles['success-text']}>
-                  WELCOME TO THE RAW ARCHIVE. <br />
-                  ESTO NO ES DISEÑO, ES UN ESPACIO PARA EL ERROR CONSCIENTE. <br />
+                  WELCOME TO THE ARCHIVE. <br />
+                  NO SEGUIMOS TENDENCIAS, LAS DESARMAMOS. <br />
+                  NO COMPRAMOS MODA, LA REESCRIBIMOS. <br />
                   <span className={styles['vip-highlight']}>VIP ACCESS GRANTED — UNLIMITED EXPLORATION.</span>
                 </p>
                 <div className={styles['success-line']} />

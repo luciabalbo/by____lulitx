@@ -133,7 +133,7 @@ export default function ArchivePage() {
               className={styles.data_circle}
             >
               <span className={styles.circleText}>
-                LULITX_ERROR_SYSTEM_DATA_LULITX_ERROR_SYSTEM_DATA_
+                VOS DALE, QUE YO DALE 🐉
               </span>
             </motion.div>
           </div>
@@ -151,7 +151,7 @@ export default function ArchivePage() {
             <h2 className={styles.hero_title_center}>
               ESTO NO ES <br/> 
               <span className={styles.glitch_auto}>DISEÑO,</span> <br/> 
-              <span className={styles.blueBg}>ES ERROR.</span>
+              <span className={styles.blueBg}>ES ERROR</span>
             </h2>
 
             <div className={styles.typing_container}>
@@ -169,7 +169,7 @@ export default function ArchivePage() {
               animate={{ opacity: [1, 0, 1] }} 
               transition={{ repeat: Infinity, duration: 1 }}
             >
-              [ STATUS: DECRYPTING ]
+              [ STATUS: BIENVENIDX A TU METAMORFOSIS ]
             </motion.span>
             <span>70%_COMPLETE</span>
           </div>
@@ -194,7 +194,7 @@ export default function ArchivePage() {
                   SISTEMA DE AJUSTE TÉCNICO.
                 </p>
                 <div className={styles.product_footer}>
-                  <span className={styles.price}>$44.000</span>
+                  <span className={styles.price}>$40.000</span>
                   <button className={styles.request_btn} onClick={() => addToCart('POLLERA TRANSFORM', 44000)}>
                     ADD_TO_BUFFER_+
                   </button>
@@ -218,7 +218,7 @@ export default function ArchivePage() {
                   TALLE 44. PIEZA DE ARCHIVO ÚNICA.
                 </p>
                 <div className={styles.product_footer}>
-                  <span className={styles.price}>$35.000</span>
+                  <span className={styles.price}>$27.000</span>
                   <button className={styles.request_btn} onClick={() => addToCart('SHORT INTERVENIDO v44', 35000)}>
                     ADD_TO_BUFFER_+
                   </button>
@@ -238,9 +238,9 @@ export default function ArchivePage() {
 
         <div className={styles.faq_grid}>
           {[
-            { q: "ESTADO_DE_ENVÍOS", a: "Realizamos envíos a todo el sistema (Argentina). El procesamiento de datos tarda 48hs hábiles." },
+            { q: "ESTADO_DE_ENVÍOS", a: "Realizamos envíos a todo MI PAÍS (Arg). El carrito de compras te re-dirige a wpp, ahí coordinamos el envío." },
             { q: "POLÍTICA_DE_RECONSTRUCCIÓN", a: "Al ser piezas únicas de archivo, no realizamos cambios por talle. Verificá bien las medidas antes de la extracción." },
-            { q: "MÉTODOS_DE_PAGO", a: "Aceptamos transferencia bancaria y tarjetas vía Mercado Pago. El total se calcula en el Buffer." }
+            { q: "MÉTODOS_DE_PAGO", a: "El carrito de compras te re-dirige a wpp, ahí coordinamos el envío o retiro de la prenda y el pago." }
           ].map((item, i) => (
             <details key={i} className={styles.faq_item}>
               <summary className={styles.faq_question}>
@@ -256,21 +256,38 @@ export default function ArchivePage() {
       <footer className={styles.footer_main}>
         <div className={styles.footer_grid}>
           <div className={styles.footer_col}>
+            <span className={styles.col_tag}>01_INFO</span>
             <h4>[ NAVIGATION ]</h4>
-            <p>SEARCH_ITEMS</p>
-            <p>SHIPPING_INFO</p>
+            <p className={styles.footer_link}>SHOP_ALL</p>
+            <p className={styles.footer_link}>ARCHIVE</p>
+            <p className={styles.footer_link}>LOGS</p>
           </div>
+
           <div className={styles.footer_col}>
+            <span className={styles.col_tag}>02_CONNECT</span>
             <h4>[ SOCIAL ]</h4>
-            <p onClick={() => window.open('https://instagram.com/by___lulitx')}>INSTAGRAM_LINK</p>
+            <p className={styles.footer_link} onClick={() => window.open('https://www.instagram.com/by_________lulitx/')}>
+              INSTAGRAM_LINK <span className={styles.arrow}>↗</span>
+            </p>
           </div>
+
           <div className={styles.footer_col}>
+            <span className={styles.col_tag}>03_ACCESS</span>
             <h4>[ NEWSLETTER ]</h4>
-            <input type="text" placeholder="ENTER_EMAIL_FOR_UPDATES" className={styles.terminal_input} />
+            <div className={styles.newsletter_wrapper}>
+              <input type="text" placeholder="ENTER_EMAIL_FOR_UPDATES" className={styles.terminal_input} />
+              <button className={styles.input_btn}>SUBMIT</button>
+            </div>
+            <p className={styles.input_hint}>// ENCRYPTED_CONNECTION_SECURE</p>
           </div>
         </div>
-        <div className={styles.ticker}>
-          <span>SYSTEM_ERROR_BY_LULITX — ALL RIGHTS RESERVED 2026 — </span>
+
+        <div className={styles.ticker_container}>
+          <div className={styles.ticker_wrapper}>
+            <span className={styles.ticker_text}>
+              © 2026 DESIGN BY LULA - HAY QUE TENER A LA AUDIENCIA CONFUNDIDA
+            </span>
+          </div>
         </div>
       </footer>
     </div>
