@@ -62,8 +62,6 @@ export default function LulitxStepOneFixed() {
     }
   };
 
-  // ... (aquí sigue el resto de tu return con el diseño de la tarjeta)
-
   return (
     <div className={styles['main-viewport']}>
       <div className={styles['top-glow']} />
