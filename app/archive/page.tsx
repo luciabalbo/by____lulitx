@@ -9,12 +9,11 @@ interface CartItem {
   price: number;
 }
 
-// COMPONENTE CORREGIDO: Ahora cicla todas las fotos al hacer click
 const ProductGallery = ({ images }: { images: string[] }) => {
   const [index, setIndex] = useState(0);
 
   const nextImage = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita conflictos con otros clicks
+    e.stopPropagation();
     setIndex((prev) => (prev + 1) % images.length);
   };
 
@@ -33,7 +32,6 @@ const ProductGallery = ({ images }: { images: string[] }) => {
         />
       </AnimatePresence>
 
-      {/* Contador de archivos para saber en cuál estás */}
       <div className={styles.image_counter}>
         FILE_0{index + 1} / 0{images.length}
       </div>
@@ -44,6 +42,32 @@ const ProductGallery = ({ images }: { images: string[] }) => {
       
       {images.length > 1 && <div className={styles.gallery_hint}>CLICK_TO_SCAN_→</div>}
     </div>
+  );
+};
+
+// Afuera del componente principal
+const CustomCursor = () => {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
+
+  return (
+    <div 
+      style={{
+        position: 'fixed',
+        left: pos.x, top: pos.y,
+        width: '20px', height: '20px',
+        border: '1px solid #0052c9',
+        transform: 'translate(-50%, -50%)',
+        pointerEvents: 'none',
+        zIndex: 10000,
+        transition: 'width 0.2s, height 0.2s'
+      }} 
+    />
   );
 };
 
@@ -72,23 +96,36 @@ export default function ArchivePage() {
   };
 
   return (
-        <div className={styles.container}>
-        {/* 1. MENU SUPERIOR TECH */}
-        <nav className={styles.header}>
-          <div className={styles.topInfo}>
-            <div className={styles.logo}>LULITX_CORE v2.6</div>
-            <div className={styles.menuLinks}>
-              <span className={styles.glitch}>[ SHOP_ALL ]</span>
-              <span>[ ARCHIVE ]</span>
-              <span>[ LOGS ]</span>
-            </div>
-            <div className={styles.visitorCount}>USERS_ONLINE: 012</div>
+    <div className={styles.container}>
+      <div className={styles.container}>
+        <CustomCursor />
+      {/* 1. NAV SUPERIOR */}
+      <nav className={styles.header}>
+        <div className={styles.topInfo}>
+          <div className={styles.logo}>LULITX_CORE v2.6</div>
+          <div className={styles.menuLinks}>
+            <span className={styles.glitch}>[ SHOP_ALL ]</span>
+            <span>[ ARCHIVE ]</span>
+            <span>[ LOGS ]</span>
           </div>
-        </nav>
+          <div className={styles.visitorCount}>USERS_ONLINE: 012</div>
+        </div>
+      </nav>
 
-        <main className={styles.workspace}>
+      {/* CARRITO FLOTANTE (BUFFER) */}
+      <AnimatePresence>
+        {cart.length > 0 && (
+          <motion.div initial={{ x: 100 }} animate={{ x: 0 }} exit={{ x: 100 }} className={styles.cart_status}>
+            <div className={styles.buffer_header}>SYSTEM_BUFFER</div>
+            <div className={styles.buffer_count}>{cart.length} ITEMS_LOADED</div>
+            <button className={styles.checkout_mini_btn} onClick={executePurchase}>EXECUTE_PURCHASE_↓</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <main className={styles.workspace}>
+        {/* 2. HERO SECTION */}
         <section className={styles.heroSection}>
-          {/* El círculo rotando de fondo */}
           <div className={styles.circleContainer}>
             <motion.div 
               animate={{ rotate: 360 }}
@@ -108,51 +145,50 @@ export default function ArchivePage() {
           >
             <div className={styles.hero_status_center}>
               <span className={styles.pulse_dot}></span>
-              <span className={styles.tag}>[ SYSTEM_ACTIVE ]</span>
+              <span className={styles.tag}>[ STYLING_ACTIVE ]</span>
             </div>
 
-            {/* Título con Glitch Automático */}
-            <h2 className={styles.hero_title_center} data-text="DISEÑO.">
+            <h2 className={styles.hero_title_center}>
               ESTO NO ES <br/> 
-              <span className={styles.glitch_auto}>DISEÑO.</span> <br/> 
+              <span className={styles.glitch_auto}>DISEÑO,</span> <br/> 
               <span className={styles.blueBg}>ES ERROR.</span>
             </h2>
 
             <div className={styles.typing_container}>
-              <p className={styles.hero_subtitle}>// PROTOCOLO_DE_RECONSTRUCCIÓN_ACTIVADO...</p>
+              <p className={styles.hero_subtitle}>|| CON ESTILO</p>
             </div>
           </motion.div>
         </section>
-        {/* SECCION SHOP (Categorías) */}
-        <section className={styles.catalog_section}>
-          <div className={styles.catalog_header}>
-            <span className={styles.tag}>DIRECTORY: /ROOT/COLLECTION_2026</span>
-            <h3>AVAILABLE_ASSETS</h3>
-          </div>
-          
-          {/* Aquí va tu Grid de Productos que ya funciona epikamente */}
-          <div className={styles.product_grid}>
-            {/* ... tus componentes ProductGallery ... */}
-          </div>
-        </section>
 
-        <section className={styles.catalog_section}>
-          <div className={styles.catalog_header}>
-            <h3>AVAILABLE_ASSETS</h3>
+        {/* 3. TRANSICIÓN */}
+        <div className={styles.transition_divider}>
+          <div className={styles.scanner_line} />
+          <div className={styles.transition_meta}>
+            <span>DROP 001</span>
+            <motion.span 
+              animate={{ opacity: [1, 0, 1] }} 
+              transition={{ repeat: Infinity, duration: 1 }}
+            >
+              [ STATUS: DECRYPTING ]
+            </motion.span>
+            <span>70%_COMPLETE</span>
           </div>
+        </div>
 
+        {/* 4. SECCION CATÁLOGO ÚNICA */}
+        <section className={styles.catalog_section}>
           <div className={styles.product_grid}>
-            {/* PRODUCTO 01: POLLERA CAMO */}
-            <motion.div whileHover={{ y: -5 }} className={styles.product_card}>
-              <div className={styles.product_header}>
-                <span>REF: LXT_CAMO_01</span>
-                <span className={styles.stock_status}>STATUS: TRANSFORMABLE</span>
-              </div>
+            {/* PRODUCTO 01 */}
+            <motion.div 
+              whileInView={{ opacity: 1, y: 0 }} 
+              initial={{ opacity: 0, y: 20 }}
+              className={styles.product_card}
+            >
               
               <ProductGallery images={['/productos/1.png', '/productos/01.png', '/productos/10.png']} />
 
               <div className={styles.product_info}>
-                <h3>POLLERA "TRANSFORM"</h3>
+                <h3>POLLERA TRANSFORM</h3>
                 <p className={styles.description}>
                   DESMONTABLE (LARGA | CORTA). CINTURA REGULABLE (60CM-90CM). 
                   SISTEMA DE AJUSTE TÉCNICO.
@@ -166,14 +202,14 @@ export default function ArchivePage() {
               </div>
             </motion.div>
 
-            {/* PRODUCTO 02: SHORT INTERVENIDO */}
-            <motion.div whileHover={{ y: -5 }} className={styles.product_card}>
-              <div className={styles.product_header}>
-                <span>REF: LXT_SHRT_44</span>
-                <span className={styles.stock_status}>STATUS: UNIQUE_PIECE</span>
-              </div>
+            {/* PRODUCTO 02 */}
+            <motion.div 
+              whileInView={{ opacity: 1, y: 0 }} 
+              initial={{ opacity: 0, y: 20 }}
+              className={styles.product_card}
+            >
               
-              <ProductGallery images={['/short_produccion.jpg', '/short_producto.jpg']} />
+              <ProductGallery images={['/productos/2.jpg', '/productos/02.png', '/productos/20.png']} />
 
               <div className={styles.product_info}>
                 <h3>SHORT INTERVENIDO_v44</h3>
@@ -193,26 +229,51 @@ export default function ArchivePage() {
         </section>
       </main>
 
-      {/* 2. FOOTER ESTRUCTURADO */}
-    <footer className={styles.footer_main}>
-      <div className={styles.footer_grid}>
-        <div className={styles.footer_col}>
-          <h4>[ NAVIGATION ]</h4>
-          <p>SEARCH_ITEMS</p>
-          <p>SHIPPING_INFO</p>
+      {/* 5. SECCIÓN FAQ (SUPPORT_DATABASE) */}
+      <section className={styles.faq_section}>
+        <div className={styles.faq_header}>
+          <span className={styles.tag}>[ SUPPORT_DATABASE ]</span>
+          <h3>FREQUENTLY_ASKED_QUESTIONS</h3>
         </div>
-        <div className={styles.footer_col}>
-          <h4>[ SOCIAL ]</h4>
-          <p onClick={() => window.open('https://instagram.com/by___lulitx')}>INSTAGRAM_LINK</p>
+
+        <div className={styles.faq_grid}>
+          {[
+            { q: "ESTADO_DE_ENVÍOS", a: "Realizamos envíos a todo el sistema (Argentina). El procesamiento de datos tarda 48hs hábiles." },
+            { q: "POLÍTICA_DE_RECONSTRUCCIÓN", a: "Al ser piezas únicas de archivo, no realizamos cambios por talle. Verificá bien las medidas antes de la extracción." },
+            { q: "MÉTODOS_DE_PAGO", a: "Aceptamos transferencia bancaria y tarjetas vía Mercado Pago. El total se calcula en el Buffer." }
+          ].map((item, i) => (
+            <details key={i} className={styles.faq_item}>
+              <summary className={styles.faq_question}>
+                <span className={styles.yellow}>&gt;</span> {item.q}
+              </summary>
+              <p className={styles.faq_answer}>{item.a}</p>
+            </details>
+          ))}
         </div>
-        <div className={styles.footer_col}>
-          <h4>[ NEWSLETTER ]</h4>
-          <input type="text" placeholder="ENTER_EMAIL_FOR_UPDATES" className={styles.terminal_input} />
+      </section>
+
+      {/* 6. FOOTER */}
+      <footer className={styles.footer_main}>
+        <div className={styles.footer_grid}>
+          <div className={styles.footer_col}>
+            <h4>[ NAVIGATION ]</h4>
+            <p>SEARCH_ITEMS</p>
+            <p>SHIPPING_INFO</p>
+          </div>
+          <div className={styles.footer_col}>
+            <h4>[ SOCIAL ]</h4>
+            <p onClick={() => window.open('https://instagram.com/by___lulitx')}>INSTAGRAM_LINK</p>
+          </div>
+          <div className={styles.footer_col}>
+            <h4>[ NEWSLETTER ]</h4>
+            <input type="text" placeholder="ENTER_EMAIL_FOR_UPDATES" className={styles.terminal_input} />
+          </div>
         </div>
-      </div>
-      <div className={styles.ticker}>
-        <span>SYSTEM_ERROR_BY_LULITX — ALL RIGHTS RESERVED 2026 — </span>
-      </div>
-    </footer>
-  </div>
-);}
+        <div className={styles.ticker}>
+          <span>SYSTEM_ERROR_BY_LULITX — ALL RIGHTS RESERVED 2026 — </span>
+        </div>
+      </footer>
+    </div>
+    </div>
+  );
+}
