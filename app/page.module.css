@@ -5,7 +5,7 @@
   background: #000;
   overflow: hidden;
   color: white;
-  font-family: var(--font-mono), monospace;
+  font-family: 'Courier New', Courier, monospace;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +69,12 @@
   backface-visibility: hidden !important;
   -webkit-backface-visibility: hidden !important;
   border-radius: 32px;
-  overflow: hidden; /* Importante para los brillos */
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 /* 4. CARA FRONTAL */
@@ -78,6 +83,7 @@
   background: linear-gradient(145deg, #fff 0%, #e0e0e0 45%, #c0c0c0 50%, #e0e0e0 55%, #b0b0b0 100%);
   border-radius: 32px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  z-index: -1;
 }
 
 .shine {
@@ -90,10 +96,17 @@
   left: 160%; transition: left 0.8s ease-in-out;
 }
 
-.card-body { position: relative; padding: 40px; }
+.card-body { 
+  position: relative; 
+  padding: 0; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .name {
-  font-family: var(--font-syne);
+  font-family: 'Courier New', Courier, monospace;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 22px;
@@ -101,15 +114,17 @@
   background: linear-gradient(to bottom, #000 20%, #444 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin: 0;
+  margin: 8px 0;
 }
 
 .tag-label { font-size: 9px; letter-spacing: 0.5em; color: #555; font-weight: 700; }
-.edition { font-size: 10px; letter-spacing: 0.1em; color: #444; font-weight: 700; margin-top: 15px; }
+.edition { font-size: 10px; letter-spacing: 0.1em; color: #444; font-weight: 700; }
 
 .join-button {
+  font-family: inherit; font-size: 10px; font-weight: bold;
   position: absolute; 
-  bottom: 30px; left: 50%;
+  bottom: 25px; 
+  left: 50%;
   width: 70%;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
@@ -120,15 +135,12 @@
   font-size: 10px; font-weight: 900; letter-spacing: 0.5em;
   cursor: pointer; 
   transition: all 0.3s ease;
-  transform: translateX(-50%); /* Fix de centrado */
+  transform: translateX(-50%) translateZ(60px); 
 }
 
 /* 5. CARA TRASERA (VIDRIO) */
 .card-back {
   transform: rotateY(180deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -136,15 +148,20 @@
 }
 
 .back-content {
-  display: flex; flex-direction: column; align-items: center; width: 85%;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center;
+  width: 85%;
+  height: 100%;
   pointer-events: auto;
 }
 
 .back-title {
-  font-family: var(--font-syne);
+  font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
-  letter-spacing: 1em;
-  text-indent: 1em;
+  letter-spacing: 0.8em;
+  text-indent: 0.8em;
   color: #fff;
   margin-bottom: 25px;
   text-transform: uppercase;
@@ -162,6 +179,7 @@
   outline: none;
   font-family: var(--font-mono);
   font-size: 12px;
+  border-radius: 4px;
 }
 
 .submit-btn {
@@ -169,18 +187,11 @@
   padding: 12px 30px; border-radius: 8px; font-weight: 900;
   letter-spacing: 2px; text-transform: uppercase;
   cursor: pointer; position: relative; overflow: hidden;
+  font-family: inherit; font-size: 10px; font-weight: bold;
 }
-
-.submit-btn:disabled::after {
-  content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  animation: scan 1.2s infinite;
-}
-
-@keyframes scan { 100% { left: 100%; } }
 
 .back-link {
-  font-size: 8px; margin-top: 20px; cursor: pointer; opacity: 0.5; letter-spacing: 2px; text-transform: uppercase;
+  font-family: inherit; font-size: 10px; font-weight: bold;
 }
 
 /* 6. TEXTOS Y ÉXITO */
@@ -196,9 +207,98 @@
   font-size: 10px; letter-spacing: 1.2em; text-indent: 1.2em; font-weight: 900;
 }
 
-.success-container { text-align: center; display: flex; flex-direction: column; align-items: center; }
-.success-title { font-family: var(--font-syne); font-weight: 800; font-size: 28px; font-style: italic; }
-.success-text { font-size: 10px; letter-spacing: 0.4em; opacity: 0.6; margin-top: 10px; }
-.success-line { width: 50px; height: 1px; background: white; margin-top: 30px; }
+.success-container { 
+  text-align: center; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  max-width: 500px;
+  width: 90%;
+}
 
-@media (max-width: 1100px) { .side-text { display: none; } }
+.success-title { font-family: 'Courier New', Courier, monospace;; font-weight: 800; font-size: 28px; font-style: italic; }
+.success-text { font-size: 10px; letter-spacing: 0.4em; opacity: 0.6; margin-top: 10px; line-height: 1.8; }
+.success-line { width: 50px; height: 1px; background: white; margin-top: 30px; }
+.id-badge { font-size: 8px; color: #666; margin-bottom: 10px; letter-spacing: 2px; }
+
+/* =============================================
+   PARCHE MOBILE FINAL (FIX PARA CAPTURA)
+   ============================================= */
+
+@media (max-width: 1100px) { 
+  .side-text { display: none; } 
+}
+
+@media (max-width: 480px) {
+  .the-card {
+    width: 320px;
+    height: 200px;
+  }
+  
+  /* Mantengo tus tamaños de card que ya funcionan */
+  .name { font-size: 18px; margin: 4px 0; }
+  .join-button { padding: 14px; bottom: 20px; width: 80%; font-size: 8px; }
+
+  /* FIX ESPECÍFICO PARA EL ÉXITO QUE SE VEÍA MAL */
+  .success-container {
+    width: 90%;
+    /* Aseguramos que esté centrado si el padre falla */
+    margin: 0 auto; 
+  }
+  
+  .success-title { 
+    font-size: 22px; /* Reducido para que no rompa la pantalla */
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  
+  .success-text { 
+    font-size: 8px; 
+    letter-spacing: 0.15em;
+    width: 100%;
+    opacity: 0.8;
+  }
+
+  /* El bloque de Encryption ACTIVE SYNC */
+  .success-container h3, .success-container p {
+    font-size: 10px !important;
+  }
+
+  .top-edge { top: 30px; }
+  .bottom-edge { bottom: 30px; }
+}
+
+@media (max-height: 650px) {
+  .top-edge, .bottom-edge { display: none; }
+}
+
+/* Solo corrección del Footer / Copyright */
+.bottom-edge {
+  bottom: 40px;
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.centered-text {
+  font-size: 10px;
+  letter-spacing: 1.2em;
+  text-indent: 1.2em; /* Para compensar el espacio extra de la última letra */
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .bottom-edge {
+    bottom: 25px; /* Un poco más arriba en mobile para que no lo tape el navegador */
+  }
+  
+  .centered-text {
+    font-size: 7px;
+    letter-spacing: 0.5em; /* Reducimos el espacio solo en mobile para que entre */
+    text-indent: 0.5em;
+    opacity: 0.6; /* Un toque más sutil */
+  }
+}
