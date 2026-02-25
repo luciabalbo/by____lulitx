@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
-  // Conectamos a Neon usando la variable de entorno
   const sql = neon(process.env.DATABASE_URL!);
 
   try {
@@ -14,36 +13,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "MAIL_REQUIRED" }, { status: 400 });
     }
 
-    // 1. Creamos la tabla si no existe (Postgres style)
-    await sql`
-      CREATE TABLE IF NOT EXISTS usuarios (
-        id SERIAL PRIMARY KEY,
-        email TEXT NOT NULL UNIQUE,
-        fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    // 2. Insertamos el mail y obtenemos el ID
-    // Usamos ON CONFLICT para que si ya existe, no explote y solo nos devuelva el ID
+    // 1. Intentamos insertar. Si el mail existe, no hace nada pero nos deja retornar el ID.
+    // Usamos xmax para saber si realmente se insertó (0) o si ya existía (distinto de 0).
     const result = await sql`
       INSERT INTO usuarios (email) 
       VALUES (${email}) 
-      ON CONFLICT (email) DO UPDATE SET email = EXCLUDED.email
-      RETURNING id;
+      ON CONFLICT (email) 
+      DO UPDATE SET email = EXCLUDED.email
+      RETURNING id, (xmax = 0) AS is_new;
     `;
     
+    // 2. Formateamos el ID (ej: de 12 a "012")
     const userId = String(result[0].id).padStart(3, '0');
-
-    console.log("ACCESO VIP GENERADO PARA:", email);
+    const isNew = result[0].is_new;
 
     return NextResponse.json({ 
-      message: "ENTRY_GRANTED", 
-      user_id: userId 
+      user_id: userId,
+      is_new: isNew 
     }, { status: 200 });
 
   } catch (error: any) {
-    console.error("ERROR EN SISTEMA NEON:", error.message);
+    console.error("NEON_ERROR:", error.message);
     return NextResponse.json({ message: "SYSTEM_ERROR" }, { status: 500 });
   }
 }
-// update-neon

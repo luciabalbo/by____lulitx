@@ -1,14 +1,18 @@
 "use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRouter } from 'next/navigation'; // Importamos el navegador
+import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 
 export default function LulitxStepOneFixed() {
-  const router = useRouter(); // Inicializamos el router
+  const router = useRouter();
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [visitorId, setVisitorId] = useState("");
+  
+  const [showCodeChallenge, setShowCodeChallenge] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -42,23 +46,37 @@ export default function LulitxStepOneFixed() {
       const data = await response.json();
 
       if (response.ok) {
-        setIsSubmitted(true);
+        // Guardamos el ID en el estado SIEMPRE (sea nuevo o viejo)
+        setVisitorId(data.user_id); 
         
-        // --- LA TRANSICIÓN DIRECTIVA ---
-        // Esperamos 1.5s para que el usuario vea el feedback de "SUCCESS" 
-        // antes de ser teletransportado al archivo.
-        setTimeout(() => {
-          router.push('/archive'); 
-        }, 1500);
-
+        if (data.is_new) {
+          // Si es nuevo, guardamos en memoria y pasamos a éxito
+          localStorage.setItem('lulitx_user_id', data.user_id);
+          setIsSubmitted(true);
+          setTimeout(() => { router.push('/archive'); }, 5000);
+        } else {
+          // Si ya existe, NO guardamos en memoria todavía, pedimos el 404
+          setShowCodeChallenge(true);
+        }
       } else {
         alert(data.message || "Error en el registro");
       }
     } catch (err) {
       console.error("Error conectando a la API:", err);
-      alert("Error de conexión.");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setAccessCode(val);
+    
+    if (val === "404") {
+      // AHORA SÍ: Como el código es correcto, validamos el acceso y guardamos el ID que ya teníamos en el estado
+      localStorage.setItem('lulitx_user_id', visitorId);
+      setIsSubmitted(true);
+      setTimeout(() => { router.push('/archive'); }, 2000);
     }
   };
 
@@ -66,7 +84,6 @@ export default function LulitxStepOneFixed() {
     <div className={styles['main-viewport']}>
       <div className={styles['top-glow']} />
 
-      {/* 1. TEXTOS DE LOS COSTADOS (ENTRADA ANIMADA) */}
       <div className={styles['absolute-layer']} style={{ pointerEvents: 'none', width: '100%', height: '100%' }}>
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 0.8, x: 0 }} transition={{ delay: 0.5 }} className={`${styles['side-text']} ${styles['left-txt']}`}>
           BY ARTIST FOR ARTIST <br /> NO ES DISEÑO, <br /> ES ERROR CON ESTILO.
@@ -82,7 +99,6 @@ export default function LulitxStepOneFixed() {
         </motion.div>
       </div>
 
-      {/* 2. LA TARJETA */}
       <div className={`${styles['absolute-layer']} ${styles['center-axis']}`}>
         <div className={styles['card-perspective']}>
           <AnimatePresence mode="wait">
@@ -91,9 +107,7 @@ export default function LulitxStepOneFixed() {
                 key="card"
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ 
-                  opacity: 1, 
-                  scale: 1, 
-                  y: 0,
+                  opacity: 1, scale: 1, y: 0,
                   rotateY: isFlipped ? 180 : 0 
                 }}
                 onMouseMove={handleMouseMove}
@@ -106,14 +120,7 @@ export default function LulitxStepOneFixed() {
                 }}
                 className={styles['the-card']}
               >
-                {/* CARA FRONTAL */}
-                <div 
-                  className={styles['card-front']} 
-                  style={{ 
-                    visibility: isFlipped ? 'hidden' : 'visible',
-                    pointerEvents: isFlipped ? 'none' : 'auto' 
-                  }}
-                >
+                <div className={styles['card-front']} style={{ visibility: isFlipped ? 'hidden' : 'visible' }}>
                   <div className={styles['metal-finish']}><div className={styles.shine} /></div>
                   <div className={styles['card-body']} style={{ transform: "translateZ(40px)" }}>
                     <span className={styles['tag-label']}>ACCESS VIP</span>
@@ -125,35 +132,46 @@ export default function LulitxStepOneFixed() {
                   </button>
                 </div>
 
-                  {/* CARA TRASERA */}
-                  <div 
-                    className={styles['card-back']} 
-                    style={{ 
-                      visibility: isFlipped ? 'visible' : 'hidden',
-                      pointerEvents: isFlipped ? 'auto' : 'none' 
-                    }}
-                  >
-                    <form onSubmit={handleSubmit} className={styles['back-content']} style={{ transform: "translateZ(50px)" }}>
-                      <h3 className={styles['back-title']}>KEEP OUT</h3>
-                      <input 
-                        name="email" 
-                        required 
-                        type="email" 
-                        placeholder="YOUR@EMAIL.COM" 
-                        className={styles['email-input']} 
-                      />
-                      <button type="submit" className={styles['submit-btn']} disabled={isLoading}>
-                        {isLoading ? "SCANNING..." : "SUBMIT"}
-                      </button>
-                      <p onClick={() => { if(!isLoading) setIsFlipped(false) }} className={styles['back-link']}>GO BACK</p>
-                    </form>
+                <div className={styles['card-back']} style={{ visibility: isFlipped ? 'visible' : 'hidden' }}>
+                  <div className={styles['back-content']} style={{ transform: "translateZ(50px)" }}>
+                    <AnimatePresence mode="wait">
+                      {!showCodeChallenge ? (
+                        <motion.form key="form-email" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={handleSubmit}>
+                          <h3 className={styles['back-title']}>KEEP OUT</h3>
+                          <input name="email" required type="email" placeholder="YOUR@EMAIL.COM" className={styles['email-input']} />
+                          <button type="submit" className={styles['submit-btn']} disabled={isLoading}>
+                            {isLoading ? "SCANNING..." : "SUBMIT"}
+                          </button>
+                          <p onClick={() => { if(!isLoading) setIsFlipped(false) }} className={styles['back-link']}>GO BACK</p>
+                        </motion.form>
+                      ) : (
+                        <motion.div key="challenge" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                          <h3 className={styles['back-title']} style={{ color: '#ffde00' }}>ALREADY VIP</h3>
+                          <p style={{ fontFamily: 'monospace', fontSize: '10px', color: '#888', marginBottom: '15px' }}>ENTER ACCESS CODE: 404</p>
+                          <input 
+                            type="text" maxLength={3} placeholder="_ _ _" value={accessCode} onChange={handleCodeChange}
+                            className={styles['email-input']} autoFocus style={{ textAlign: 'center', fontSize: '24px', letterSpacing: '8px' }}
+                          />
+                          <p className={styles['status-log']}>AWAITING_RE_ENTRY_PROTOCOL...</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
+                </div>
               </motion.div>
             ) : (
-              <motion.div key="success" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className={styles['success-container']}>
-                <h2 className={styles['success-title']}>WELCOME TO THE ARCHIVE</h2>
-                <p className={styles['success-text']}>YOU ARE IN. CHECK YOUR INBOX.</p>
+              <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className={styles['success-container']}>
+                <div className={styles['id-badge']}>ENTRY_LOG_ID: {visitorId}</div>
+                <h2 className={styles['success-title']}>IDENTITY VERIFIED.</h2>
+                <p className={styles['success-text']}>
+                  WELCOME TO THE RAW ARCHIVE. <br />
+                  ESTO NO ES DISEÑO, ES UN ESPACIO PARA EL ERROR CONSCIENTE. <br />
+                  <span className={styles['vip-highlight']}>VIP ACCESS GRANTED — UNLIMITED EXPLORATION.</span>
+                </p>
                 <div className={styles['success-line']} />
+                <div className={styles['status-log']}>
+                  ENCRYPTION: <span className={styles['green-text']}>ACTIVE</span> // SYNC: <span className={styles['green-text']}>NEON_CLOUD</span>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

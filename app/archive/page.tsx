@@ -1,48 +1,71 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 import styles from './archive.module.css';
 
 export default function ArchivePage() {
+  const [visitorId, setVisitorId] = useState("000");
+
+  useEffect(() => {
+    const savedId = localStorage.getItem('lulitx_user_id');
+    if (savedId) setVisitorId(savedId);
+  }, []);
+
   return (
     <div className={styles.container}>
-      {/* Overlay de ruido industrial */}
-      <div className={styles.scanlines} />
+      {/* HEADER TÉCNICO */}
+      <nav className={styles.header}>
+        <div className={styles.topInfo}>
+          <span>DB_ROOT: <span className={styles.yellow}>LULITX_CORE</span></span>
+          <span className={styles.glitch}>STATUS: INFILTRATED</span>
+          <span>USER_ID: {visitorId}</span>
+        </div>
+      </nav>
 
-      <header className={styles.header}>
-        <div className={styles.glitch} data-text="BY____LULITX">BY____LULITX</div>
-        <div className={styles.accessLevel}>LEVEL: VIP_ACCESS</div>
-      </header>
-
-      <main className={styles.content}>
-        {/* Elemento 1: El clip de metal (Concepto IG) */}
-        <motion.div drag dragConstraints={{left:0, right:0, top:0, bottom:0}} className={styles.paperClip}>
-          [ CLIP_FILE_001 ]
+      <main className={styles.workspace}>
+        {/* ELEMENTO 1: LA DECLARACIÓN */}
+        <motion.div 
+          drag 
+          dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+          className={styles.manifestoBox}
+        >
+          <span className={styles.tag}>VERSION_2026</span>
+          <h2>ESTO NO ES DISEÑO.<br/>ES UN ERROR<br/><span className={styles.blueBg}>CONSCIENTE.</span></h2>
+          <p>Exploración visual sin filtros. Prohibido el paso a mentes cerradas.</p>
         </motion.div>
 
-        {/* Elemento 2: Preview del Drop */}
+        {/* ELEMENTO 2: FOTO PRINCIPAL (Placeholder) */}
         <motion.div 
-          initial={{ rotate: -5, x: -20 }}
+          initial={{ rotate: -2 }}
           whileHover={{ rotate: 0, scale: 1.05 }}
-          className={styles.photoCard}
+          className={styles.bigPhoto}
         >
-          <div className={styles.label}>PREVIEW_DROP_01.JPG</div>
+          <div className={styles.photoOverlay}>FILE_ID_099.JPG</div>
           <div className={styles.imagePlaceholder}>
-             {/* Acá irá tu foto de los jeans */}
-             <p className={styles.yellowText}>IMAGE_LOCKED</p>
+             {/* Aquí irá tu imagen de impacto */}
+             <span>[ HIGH_VOLTAGE_VISUAL ]</span>
           </div>
         </motion.div>
 
-        {/* Elemento 3: Manifiesto */}
-        <div className={styles.manifesto}>
-          <h3>ESTAMOS REESCRIBIENDO EL SISTEMA</h3>
-          <p>NO ES DISEÑO, ES ERROR CON ESTILO. EL ARCHIVO ESTÁ SIENDO CARGADO...</p>
+        {/* ELEMENTO 3: EL BOTÓN DE "QUIERO TODO" */}
+        <motion.button 
+          whileTap={{ scale: 0.95 }}
+          className={styles.ctaButton}
+        >
+          DOWNLOAD_FULL_ARCHIVE_↓
+        </motion.button>
+
+        {/* ELEMENTO 4: STICKER FLOTANTE */}
+        <div className={styles.paperClip}>
+          VIP_ACCESS_ONLY
         </div>
       </main>
 
+      {/* FOOTER TÉCNICO */}
       <footer className={styles.footer}>
-        <div className={styles.barcode}>|||| || | ||| ||||| |</div>
-        <p>© 2026 ARCHIVE DIGITAL - ALL RIGHTS RESERVED</p>
+        <div className={styles.scrollText}>
+          BY LULITX - NO ES DISEÑO, ES ERROR CON ESTILO.
+        </div>
       </footer>
     </div>
   );
