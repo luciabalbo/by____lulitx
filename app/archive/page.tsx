@@ -72,25 +72,68 @@ export default function ArchivePage() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.noiseOverlay} />
+        <div className={styles.container}>
+        {/* 1. MENU SUPERIOR TECH */}
+        <nav className={styles.header}>
+          <div className={styles.topInfo}>
+            <div className={styles.logo}>LULITX_CORE v2.6</div>
+            <div className={styles.menuLinks}>
+              <span className={styles.glitch}>[ SHOP_ALL ]</span>
+              <span>[ ARCHIVE ]</span>
+              <span>[ LOGS ]</span>
+            </div>
+            <div className={styles.visitorCount}>USERS_ONLINE: 012</div>
+          </div>
+        </nav>
 
-      <AnimatePresence>
-        {cart.length > 0 && (
-          <motion.div initial={{ x: 100 }} animate={{ x: 0 }} exit={{ x: 100 }} className={styles.cart_status}>
-            <div className={styles.buffer_header}>SYSTEM_BUFFER</div>
-            <div className={styles.buffer_count}>{cart.length} ITEMS_LOADED</div>
-            <button className={styles.checkout_mini_btn} onClick={executePurchase}>EXECUTE_PURCHASE_↓</button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <main className={styles.workspace}>
+        <main className={styles.workspace}>
         <section className={styles.heroSection}>
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className={styles.manifestoBox}>
-            <span className={styles.tag}>[ ACCESS_GRANTED ]</span>
-            <h2>ESTO NO ES <br/> DISEÑO. <br/> <span className={styles.blueBg}>ES ERROR.</span></h2>
+          {/* El círculo rotando de fondo */}
+          <div className={styles.circleContainer}>
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+              className={styles.data_circle}
+            >
+              <span className={styles.circleText}>
+                LULITX_ERROR_SYSTEM_DATA_LULITX_ERROR_SYSTEM_DATA_
+              </span>
+            </motion.div>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className={styles.manifestoBoxCentered}
+          >
+            <div className={styles.hero_status_center}>
+              <span className={styles.pulse_dot}></span>
+              <span className={styles.tag}>[ SYSTEM_ACTIVE ]</span>
+            </div>
+
+            {/* Título con Glitch Automático */}
+            <h2 className={styles.hero_title_center} data-text="DISEÑO.">
+              ESTO NO ES <br/> 
+              <span className={styles.glitch_auto}>DISEÑO.</span> <br/> 
+              <span className={styles.blueBg}>ES ERROR.</span>
+            </h2>
+
+            <div className={styles.typing_container}>
+              <p className={styles.hero_subtitle}>// PROTOCOLO_DE_RECONSTRUCCIÓN_ACTIVADO...</p>
+            </div>
           </motion.div>
+        </section>
+        {/* SECCION SHOP (Categorías) */}
+        <section className={styles.catalog_section}>
+          <div className={styles.catalog_header}>
+            <span className={styles.tag}>DIRECTORY: /ROOT/COLLECTION_2026</span>
+            <h3>AVAILABLE_ASSETS</h3>
+          </div>
+          
+          {/* Aquí va tu Grid de Productos que ya funciona epikamente */}
+          <div className={styles.product_grid}>
+            {/* ... tus componentes ProductGallery ... */}
+          </div>
         </section>
 
         <section className={styles.catalog_section}>
@@ -150,11 +193,26 @@ export default function ArchivePage() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.scrollText}>
-           — NO ES DISEÑO, ES ERROR CON ESTILO — BY LULITX — 2026 —
+      {/* 2. FOOTER ESTRUCTURADO */}
+    <footer className={styles.footer_main}>
+      <div className={styles.footer_grid}>
+        <div className={styles.footer_col}>
+          <h4>[ NAVIGATION ]</h4>
+          <p>SEARCH_ITEMS</p>
+          <p>SHIPPING_INFO</p>
         </div>
-      </footer>
-    </div>
-  );
-}
+        <div className={styles.footer_col}>
+          <h4>[ SOCIAL ]</h4>
+          <p onClick={() => window.open('https://instagram.com/by___lulitx')}>INSTAGRAM_LINK</p>
+        </div>
+        <div className={styles.footer_col}>
+          <h4>[ NEWSLETTER ]</h4>
+          <input type="text" placeholder="ENTER_EMAIL_FOR_UPDATES" className={styles.terminal_input} />
+        </div>
+      </div>
+      <div className={styles.ticker}>
+        <span>SYSTEM_ERROR_BY_LULITX — ALL RIGHTS RESERVED 2026 — </span>
+      </div>
+    </footer>
+  </div>
+);}
