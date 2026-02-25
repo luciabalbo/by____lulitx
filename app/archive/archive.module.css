@@ -3,32 +3,42 @@
   --color-azul: #0052c9;
   --color-negro: #000000;
   --color-blanco: #ffffff;
+  --bg-grid: radial-gradient(var(--color-azul) 0.5px, transparent 0.5px);
 }
 
+/* 1. ESTRUCTURA BASE CON TEXTURA */
 .container {
-  background: var(--color-negro);
+  background-color: var(--color-negro);
+  /* Malla técnica de fondo para dar profundidad */
+  background-image: var(--bg-grid), var(--bg-grid);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
   min-height: 100vh;
   color: var(--color-blanco);
   font-family: 'Courier New', Courier, monospace;
   overflow-x: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-/* EFECTO DE LÍNEAS DE ESCANEO CRT */
-.container::after {
+/* Overlay de ruido sutil para look analógico */
+.container::before {
   content: "";
   position: fixed;
-  inset: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-  background-size: 100% 4px;
-  z-index: 1000;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0.03;
   pointer-events: none;
+  background: url('https://grainy-gradients.vercel.app/noise.svg');
+  z-index: 999;
 }
 
+/* 2. HEADER Y TOP INFO */
 .header {
-  padding: 20px;
+  padding: 15px;
   border-bottom: 1px solid var(--color-azul);
   background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 500;
@@ -37,30 +47,43 @@
 .topInfo {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  align-items: center;
+  font-size: 10px;
   letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
+/* 3. WORKSPACE (HERO SECTION) */
 .workspace {
+  flex: 1;
   position: relative;
-  height: 120vh; /* Para permitir scroll y elementos flotantes */
-  padding: 50px;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
 }
 
 .manifestoBox {
-  position: absolute;
-  top: 100px;
-  left: 5%;
   z-index: 10;
-  max-width: 500px;
+  width: 100%;
+  max-width: 800px;
   cursor: grab;
 }
 
 .manifestoBox h2 {
-  font-size: 4rem;
+  font-size: clamp(3rem, 12vw, 6.5rem);
   line-height: 0.8;
-  color: var(--color-blanco);
   margin: 20px 0;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+}
+
+.tag {
+  font-size: 10px;
+  background: var(--color-azul);
+  padding: 4px 8px;
+  color: var(--color-amarillo);
+  font-weight: bold;
 }
 
 .blueBg {
@@ -69,79 +92,246 @@
   padding: 0 10px;
 }
 
+/* FOTO PRINCIPAL */
 .bigPhoto {
-  position: absolute;
-  top: 200px;
-  right: 10%;
-  width: 400px;
-  height: 550px;
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 3/4;
   border: 1px solid var(--color-amarillo);
-  background: #111;
+  background: #0a0a0a;
   padding: 10px;
-  z-index: 5;
+  align-self: flex-end;
+  box-shadow: 20px 20px 0px rgba(0, 82, 201, 0.1);
+}
+
+.photoOverlay {
+  font-size: 9px;
+  color: var(--color-amarillo);
+  margin-bottom: 8px;
+  display: block;
 }
 
 .imagePlaceholder {
   width: 100%;
-  height: 100%;
-  background: #222;
+  height: calc(100% - 20px);
+  background: #111;
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--color-azul);
   font-weight: bold;
+  border: 1px dashed #333;
 }
 
-.ctaButton {
+/* 4. CATÁLOGO Y PRODUCTOS */
+.catalog_section {
+  padding: 100px 20px;
+  border-top: 1px solid #1a1a1a;
+}
+
+.section_title {
+  font-size: 14px;
+  letter-spacing: 8px;
+  text-align: center;
+  margin-bottom: 60px;
+  color: var(--color-azul);
+  text-transform: uppercase;
+}
+
+.product_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.product_card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  background: linear-gradient(180deg, rgba(0, 82, 201, 0.05) 0%, rgba(0,0,0,0) 100%);
+  border: 1px solid rgba(0, 82, 201, 0.3);
+}
+
+.product_card::before {
+  content: "";
   position: absolute;
+  top: -2px; left: -2px;
+  width: 10px; height: 10px;
+  border-top: 2px solid var(--color-amarillo);
+  border-left: 2px solid var(--color-amarillo);
+}
+
+.product_card:hover {
+  border-color: var(--color-amarillo);
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 82, 201, 0.2);
+}
+
+.product_header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--color-azul);
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.product_image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: #0a0a0a;
+  border: 1px solid #222;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de escaneo en hover */
+.product_card:hover .product_image::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 2px;
+  background: var(--color-amarillo);
+  box-shadow: 0 0 10px var(--color-amarillo);
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.product_info h3 {
+  color: var(--color-amarillo);
+  font-size: 20px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.description {
+  font-size: 11px;
+  color: #888;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+.product_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid #1a1a1a;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-blanco);
+}
+
+.request_btn {
+  background: var(--color-azul);
+  color: var(--color-amarillo);
+  border: none;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.request_btn:hover {
+  background: var(--color-amarillo);
+  color: var(--color-negro);
+  clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%);
+}
+
+/* 5. SISTEMA DE CARRITO (BUFFER) */
+.cart_status {
+  position: fixed;
   bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 25px;
+  background: var(--color-azul);
+  color: var(--color-amarillo);
+  padding: 15px;
+  border: 1px solid var(--color-amarillo);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 8px 8px 0px var(--color-negro);
+}
+
+.buffer_header {
+  font-size: 10px;
+  border-bottom: 1px solid var(--color-amarillo);
+  padding-bottom: 5px;
+  letter-spacing: 2px;
+}
+
+.checkout_mini_btn {
   background: var(--color-amarillo);
   color: var(--color-negro);
   border: none;
-  padding: 20px 40px;
   font-weight: 900;
-  font-size: 1.5rem;
+  padding: 8px;
   cursor: pointer;
-  box-shadow: 10px 10px 0px var(--color-azul);
-  transition: 0.2s;
+  font-size: 11px;
 }
 
-.ctaButton:hover {
-  box-shadow: 5px 5px 0px var(--color-azul);
-  transform: translateX(-52%) translateY(5px);
+.image_meta {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: var(--color-amarillo);
+  color: var(--color-negro);
+  font-size: 8px;
+  padding: 2px 5px;
+  font-weight: 900;
+  z-index: 5;
 }
 
+/* Efecto para que la foto no sea estática */
+.img_main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.2) contrast(1.1);
+  transition: filter 0.3s ease;
+}
+
+.product_card:hover .img_main {
+  filter: grayscale(0) contrast(1.2);
+}
+
+/* 6. ELEMENTOS EXTRA Y FOOTER */
 .paperClip {
   position: absolute;
-  top: 50px;
-  right: 50px;
-  background: var(--color-azul);
-  color: var(--color-blanco);
-  padding: 5px 15px;
-  transform: rotate(-15deg);
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.yellow { color: var(--color-amarillo); }
-.glitch { color: #ff0000; animation: flash 1s infinite; }
-
-@keyframes flash {
-  50% { opacity: 0; }
+  top: 40px;
+  right: 20px;
+  background: var(--color-amarillo);
+  color: var(--color-negro);
+  padding: 6px 15px;
+  transform: rotate(5deg);
+  font-weight: 900;
+  font-size: 12px;
+  box-shadow: 4px 4px 0px var(--color-azul);
+  z-index: 100;
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
   background: var(--color-amarillo);
   color: var(--color-negro);
-  padding: 10px 0;
-  font-weight: bold;
-  white-space: nowrap;
+  padding: 12px 0;
+  font-weight: 900;
+  font-size: 14px;
   overflow: hidden;
+  position: relative;
+  z-index: 100;
 }
 
 .scrollText {
@@ -150,6 +340,22 @@
 }
 
 @keyframes scroll {
-  from { transform: translateX(100%); }
-  to { transform: translateX(-100%); }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
+
+/* 7. RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+  .workspace { padding-top: 40px; gap: 50px; }
+  .manifestoBox h2 { font-size: 3.2rem; }
+  .bigPhoto { align-self: center; width: 100%; }
+  .product_grid { grid-template-columns: 1fr; }
+  .cart_status { bottom: 80px; right: 15px; left: 15px; flex-direction: row; justify-content: space-between; align-items: center; }
+  .hideMobile { display: none; }
+  .showMobile { display: block; }
+}
+
+/* HELPERS */
+.yellow { color: var(--color-amarillo); }
+.glitch { animation: flash 1s infinite; color: var(--color-amarillo); }
+@keyframes flash { 50% { opacity: 0.3; } }
