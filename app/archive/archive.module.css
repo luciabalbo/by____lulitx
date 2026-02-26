@@ -1,13 +1,18 @@
 :root {
   --color-amarillo: #fce900;
   --color-azul: #0052c9;
+  /* Nuevo color Rojo Industrial */
+  --color-rojo: #d73428; 
   --color-azul-glow: rgba(0, 82, 201, 0.5);
+  /* Brillo para el rojo */
+  --color-rojo-glow: rgba(215, 52, 40, 0.4); 
   --color-negro: #000000;
   --color-blanco: #ffffff;
-  --bg-grid: radial-gradient(var(--color-azul) 0.5px, transparent 0.5px);
+  /* Usamos el rojo sutil para el fondo grid */
+  --bg-grid: radial-gradient(var(--color-rojo) 0.5px, transparent 0.5px);
 }
 
-/* 1. ESTRUCTURA Y FONDO DINÁMICO */
+/* 1. ESTRUCTURA Y FONDO DINÁMICO (Sin cambios) */
 .container {
   background-color: var(--color-negro);
   background-image: var(--bg-grid), var(--bg-grid);
@@ -19,7 +24,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden; /* Evita scrolls horizontales accidentales */
+  overflow-x: hidden;
 }
 
 .container::before {
@@ -43,7 +48,8 @@
 /* 2. HEADER TERMINAL */
 .header {
   padding: 20px;
-  border-bottom: 1px solid var(--color-azul);
+  /* Rojo para la línea de borde */
+  border-bottom: 1px solid var(--color-rojo); 
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
   position: sticky;
@@ -61,15 +67,21 @@
 
 .logo {
   font-weight: 900;
-  border: 1px solid var(--color-blanco);
+  /* Rojo para el logo tech */
+  border: 1px solid var(--color-rojo); 
+  color: var(--color-rojo);
   padding: 4px 8px;
 }
 
 .menuLinks { display: flex; gap: 25px; }
 .menuLinks span { cursor: pointer; transition: 0.3s; }
-.menuLinks span:hover { color: var(--color-amarillo); text-shadow: 0 0 8px var(--color-amarillo); }
+.menuLinks span:hover { 
+  /* Hover ahora es Rojo */
+  color: var(--color-rojo); 
+  text-shadow: 0 0 8px var(--color-rojo-glow); 
+}
 
-/* 3. HERO SECCION CENTRADA */
+/* 3. HERO SECCION CENTRADA (Sin cambios) */
 .heroSection {
   min-height: 90vh;
   display: flex;
@@ -127,30 +139,35 @@
 
 .data_circle {
   width: 100%; height: 100%;
-  border: 1px solid var(--color-azul);
+  /* Radar ahora es Rojo Alerta */
+  border: 1px solid var(--color-rojo); 
   border-radius: 50%;
   opacity: 0.2;
   border-style: double;
 }
 
 .hero_subtitle {
-  font-size: 10px; letter-spacing: 4px; color: var(--color-azul);
+  font-size: 10px; letter-spacing: 4px; 
+  /* Subtítulo Amarillo */
+  color: var(--color-amarillo); 
   overflow: hidden; white-space: nowrap;
-  border-right: 2px solid var(--color-amarillo);
+  /* Cursor Typing ahora es Rojo */
+  border-right: 2px solid var(--color-rojo); 
   animation: typing 4s steps(40) infinite, blink 0.5s step-end infinite;
 }
 
 /* --- DIVIDER DE TRANSICIÓN (BASE) --- */
 .transition_divider {
   width: 100%; 
-  height: auto; /* Cambiado a auto para que el texto no se pise en mobile */
+  height: auto; 
   min-height: 100px;
   position: relative;
   display: flex; 
   flex-direction: column; 
   justify-content: center; 
   align-items: center;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 82, 201, 0.1) 50%, transparent 100%);
+  /* Gradiente con el nuevo Rojo */
+  background: linear-gradient(180deg, transparent 0%, rgba(215, 52, 40, 0.1) 50%, transparent 100%);
   overflow: hidden;
   padding: 20px 0;
 }
@@ -158,8 +175,9 @@
 .scanner_line {
   width: 100%; 
   height: 1px;
-  background: var(--color-azul);
-  box-shadow: 0 0 15px var(--color-azul);
+  /* Línea Scanner Roja */
+  background: var(--color-rojo);
+  box-shadow: 0 0 15px var(--color-rojo-glow);
   animation: sweep 4s ease-in-out infinite;
 }
 
@@ -168,28 +186,29 @@
   width: 100%;
   max-width: 1200px;
   display: flex;
-  justify-content: space-between; /* En desktop se separan a los costados */
+  justify-content: space-between; 
   padding: 15px 20px;
   font-size: 9px;
-  color: var(--color-azul);
+  /* Texto meta Rojo */
+  color: var(--color-rojo); 
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 /* =============================================
-   FIX PARA CELULARES (TEXTO CENTRADO)
+   FIX PARA CELULARES (TEXTO CENTRADO) (Sin cambios)
    ============================================= */
 @media (max-width: 768px) {
   .transition_meta {
-    flex-direction: column; /* Apila los textos uno abajo del otro */
-    align-items: center;    /* Centra los textos horizontalmente */
-    gap: 10px;              /* Espacio entre las líneas de texto */
+    flex-direction: column; 
+    align-items: center;    
+    gap: 10px;              
     text-align: center;
     padding: 15px 10px;
   }
 
   .scanner_line {
-    margin-bottom: 10px; /* Ajuste de espacio con el texto apilado */
+    margin-bottom: 10px; 
   }
 }
 
@@ -204,7 +223,8 @@
 
 .product_card {
   background: rgba(5, 5, 5, 0.4);
-  border: 1px solid rgba(0, 82, 201, 0.2);
+  /* Borde de card Rojo tenue */
+  border: 1px solid rgba(215, 52, 40, 0.2); 
   position: relative;
   display: flex;
   flex-direction: column;
@@ -212,7 +232,8 @@
 }
 
 .product_card:hover {
-  border-color: var(--color-azul);
+  /* Hover cambia a Amarillo */
+  border-color: var(--color-amarillo); 
   transform: translateY(-5px);
   background: rgba(10, 10, 10, 0.8);
 }
@@ -222,8 +243,9 @@
   display: flex;
   justify-content: space-between;
   font-size: 9px;
-  color: var(--color-azul);
-  border-bottom: 1px solid rgba(0, 82, 201, 0.1);
+  /* Texto header Rojo */
+  color: var(--color-rojo); 
+  border-bottom: 1px solid rgba(215, 52, 40, 0.1);
 }
 
 .product_image {
@@ -246,37 +268,49 @@
 
 .description {
   font-size: 10px; color: #888; line-height: 1.5;
-  border-left: 1px solid var(--color-azul); padding-left: 12px;
+  /* Detalle lateral Rojo */
+  border-left: 1px solid var(--color-rojo); 
+  padding-left: 12px;
 }
 
 .product_footer {
   display: flex; align-items: center;
-  border-top: 1px solid rgba(0, 82, 201, 0.1);
+  border-top: 1px solid rgba(215, 52, 40, 0.1);
   margin-top: auto;
 }
 
-.price { padding: 15px; font-size: 16px; font-weight: bold; flex: 1; }
+.price { padding: 15px; font-size: 16px; font-weight: bold; flex: 1; color: var(--color-blanco); }
 
 .request_btn {
-  background: transparent; color: var(--color-azul);
+  background: transparent; 
+  /* Botón acción Rojo */
+  color: var(--color-rojo); 
   border: none; padding: 15px 25px;
   font-family: inherit; font-size: 10px; font-weight: bold;
   cursor: pointer; transition: 0.3s;
 }
 
-.request_btn:hover { background: var(--color-amarillo); color: var(--color-negro); }
+.request_btn:hover { 
+  background: var(--color-rojo); 
+  color: var(--color-blanco); 
+}
 
 /* 7. FAQ & FOOTER */
 .faq_section { padding: 100px 20px; max-width: 800px; margin: 0 auto; }
-.faq_item { border: 1px solid rgba(0, 82, 201, 0.2); margin-bottom: 10px; }
+.faq_item { 
+  /* Borde FAQ Rojo tenue */
+  border: 1px solid rgba(215, 52, 40, 0.2); 
+  margin-bottom: 10px; 
+}
 .faq_question { padding: 20px; cursor: pointer; font-size: 12px; font-weight: bold; }
 .faq_answer { padding: 0 20px 20px 40px; font-size: 11px; color: #666; }
 
 /* --- FOOTER PRINCIPAL --- */
 .footer_main {
   background: #000;
-  border-top: 1px solid var(--color-azul);
-  padding: 80px 20px 0 20px; /* Más espacio arriba */
+  /* Borde footer Rojo */
+  border-top: 1px solid var(--color-rojo); 
+  padding: 80px 20px 0 20px; 
   position: relative;
   z-index: 10;
 }
@@ -291,7 +325,8 @@
 
 .col_tag {
   font-size: 8px;
-  color: var(--color-azul);
+  /* Tag Rojo */
+  color: var(--color-rojo); 
   opacity: 0.6;
   display: block;
   margin-bottom: 10px;
@@ -316,7 +351,8 @@
 }
 
 .footer_link:hover {
-  color: var(--color-amarillo);
+  /* Hover footer Amarillo */
+  color: var(--color-amarillo); 
   transform: translateX(5px);
 }
 
@@ -334,7 +370,8 @@
 .terminal_input {
   background: transparent;
   border: none;
-  color: var(--color-amarillo);
+  /* Input Rojo */
+  color: var(--color-rojo); 
   padding: 10px;
   flex: 1;
   font-family: inherit;
@@ -343,7 +380,8 @@
 }
 
 .input_btn {
-  background: var(--color-azul);
+  /* Botón newsletter Rojo */
+  background: var(--color-rojo); 
   color: #fff;
   border: none;
   padding: 0 15px;
@@ -364,7 +402,7 @@
   letter-spacing: 1px;
 }
 
-/* TICKER ANIMADO (La cinta que corre) */
+/* TICKER ANIMADO (Sin cambios) */
 .ticker_container {
   border-top: 1px solid rgba(0, 82, 201, 0.2);
   padding: 20px 0;
@@ -391,7 +429,7 @@
   100% { transform: translateX(-50%); }
 }
 
-/* RESPONSIVE FOOTER */
+/* RESPONSIVE FOOTER (Sin cambios) */
 @media (max-width: 768px) {
   .footer_grid {
     grid-template-columns: 1fr;
@@ -413,15 +451,22 @@
 /* 8. CARRITO Y OTROS */
 .cart_status {
   position: fixed; bottom: 30px; right: 30px;
-  background: var(--color-negro); border: 1px solid var(--color-amarillo);
+  background: var(--color-negro); 
+  /* Borde carrito Rojo */
+  border: 1px solid var(--color-rojo); 
   padding: 20px; z-index: 1000;
   box-shadow: 8px 8px 0px var(--color-azul);
 }
 
-.blueBg { background: var(--color-azul); color: var(--color-amarillo); padding: 0 10px; }
+.blueBg { 
+  /* Fondo Azul, Texto Amarillo */
+  background: var(--color-azul); 
+  color: var(--color-amarillo); 
+  padding: 0 10px; 
+}
 
 /* =============================================
-   MEGA MEDIA QUERIES - MOBILE OPTIMIZATION
+   MEGA MEDIA QUERIES (Sin cambios)
    ============================================= */
 
 @media (max-width: 1024px) {
@@ -432,7 +477,6 @@
 }
 
 @media (max-width: 768px) {
-  /* 1. HEADER MOBILE */
   .topInfo {
     flex-direction: column;
     gap: 15px;
@@ -444,7 +488,6 @@
     font-size: 9px;
   }
 
-  /* 2. HERO MOBILE */
   .heroSection {
     min-height: 70vh;
     padding: 100px 15px 40px;
@@ -456,24 +499,22 @@
   }
 
   .circleContainer {
-    width: 300px; /* Radar más pequeño en móviles */
+    width: 300px; 
     height: 300px;
   }
 
-  /* 3. CATALOG MOBILE */
   .catalog_section {
     padding: 40px 15px;
   }
 
   .product_grid {
-    grid-template-columns: 1fr; /* Una sola columna para que la foto sea grande */
+    grid-template-columns: 1fr; 
   }
 
   .product_card:hover {
-    transform: none; /* Evitamos saltos raros en touch */
+    transform: none; 
   }
 
-  /* 4. FAQ MOBILE */
   .faq_section {
     padding: 60px 15px;
   }
@@ -483,7 +524,6 @@
     padding: 15px;
   }
 
-  /* 5. CARRITO MOBILE */
   .cart_status {
     left: 15px;
     right: 15px;
@@ -525,14 +565,12 @@
     gap: 30px;
   }
   
-  /* Ajuste para el grano de fondo en móviles para performance */
   .container::before {
     opacity: 0.04;
-    animation: none; /* Menos carga procesador */
+    animation: none; 
   }
 }
 
-/* Fix para dispositivos con Notch o pantallas muy altas */
 @supports (padding: env(safe-area-inset-bottom)) {
   .cart_status {
     padding-bottom: calc(15px + env(safe-area-inset-bottom));
