@@ -71,6 +71,41 @@ const CustomCursor = () => {
   );
 };
 
+const PRODUCTS_DATA = [
+  {
+    id: 1,
+    name: "POLLERA TRANSFORM",
+    price: 40000,
+    description: "DESMONTABLE (LARGA | CORTA). CINTURA REGULABLE (60CM-90CM). PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/1.png', '/productos/01.png', '/productos/10.png'],
+    tag: "FILE_01"
+  },
+  {
+    id: 2,
+    name: "SHORT INTERVENIDO_v44",
+    price: 27000,
+    description: "CONSTRUCCIÓN HÍBRIDA SHORT+SHORT. CINTURA 88CM. TALLE 44. PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/2.jpg', '/productos/02.png', '/productos/20.png'],
+    tag: "FILE_02"
+  },
+  {
+    id: 3,
+    name: "VESTIDO V_ctrlZ",
+    price: 55000,
+    description: "CONSTRUCCIÓN CASACA+PANTALÓN_ABUELA. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/3.jpg', '/productos/03.png', '/productos/30.JPG'],
+    tag: "FILE_03"
+  },
+  {
+    id: 4,
+    name: "BUZO A_ctrlX",
+    price: 70000,
+    description: "CONSTRUCCIÓN BUZO+CADENAS. TALLE M. PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/44.png', '/productos/04.png', '/productos/40.png'],
+    tag: "FILE_03"
+  }
+];
+
 export default function ArchivePage() {
   const [visitorId, setVisitorId] = useState("000");
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -176,55 +211,40 @@ export default function ArchivePage() {
         </div>
 
         {/* 4. SECCION CATÁLOGO ÚNICA */}
+        {/* 4. SECCION CATÁLOGO ÚNICA - AUTOMATIZADA */}
         <section className={styles.catalog_section}>
           <div className={styles.product_grid}>
-            {/* PRODUCTO 01 */}
-            <motion.div 
-              whileInView={{ opacity: 1, y: 0 }} 
-              initial={{ opacity: 0, y: 20 }}
-              className={styles.product_card}
-            >
-              
-              <ProductGallery images={['/productos/1.png', '/productos/01.png', '/productos/10.png']} />
+            {PRODUCTS_DATA.map((product) => (
+              <motion.div 
+                key={product.id}
+                whileInView={{ opacity: 1, y: 0 }} 
+                initial={{ opacity: 0, y: 20 }}
+                className={styles.product_card}
+              >
+                {/* Usamos el componente de galería que ya tenés */}
+                <ProductGallery images={product.images} />
 
-              <div className={styles.product_info}>
-                <h3>POLLERA TRANSFORM</h3>
-                <p className={styles.description}>
-                  DESMONTABLE (LARGA | CORTA). CINTURA REGULABLE (60CM-90CM). 
-                  SISTEMA DE AJUSTE TÉCNICO.
-                </p>
-                <div className={styles.product_footer}>
-                  <span className={styles.price}>$40.000</span>
-                  <button className={styles.request_btn} onClick={() => addToCart('POLLERA TRANSFORM', 44000)}>
-                    ADD_TO_BUFFER_+
-                  </button>
+                <div className={styles.product_info}>
+                  <div className={styles.product_header}>
+                    <span>{product.tag}</span>
+                    <span>[ IN_STOCK ]</span>
+                  </div>
+                  <h3>{product.name}</h3>
+                  <p className={styles.description}>
+                    {product.description}
+                  </p>
+                  <div className={styles.product_footer}>
+                    <span className={styles.price}>${product.price.toLocaleString()}</span>
+                    <button 
+                      className={styles.request_btn} 
+                      onClick={() => addToCart(product.name, product.price)}
+                    >
+                      COMPRAR_{product.name.split(' ')[0]}_+
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* PRODUCTO 02 */}
-            <motion.div 
-              whileInView={{ opacity: 1, y: 0 }} 
-              initial={{ opacity: 0, y: 20 }}
-              className={styles.product_card}
-            >
-              
-              <ProductGallery images={['/productos/2.jpg', '/productos/02.png', '/productos/20.png']} />
-
-              <div className={styles.product_info}>
-                <h3>SHORT INTERVENIDO_v44</h3>
-                <p className={styles.description}>
-                  CONSTRUCCIÓN HÍBRIDA SHORT+SHORT. CINTURA 88CM. 
-                  TALLE 44. PIEZA DE ARCHIVO ÚNICA.
-                </p>
-                <div className={styles.product_footer}>
-                  <span className={styles.price}>$27.000</span>
-                  <button className={styles.request_btn} onClick={() => addToCart('SHORT INTERVENIDO v44', 35000)}>
-                    ADD_TO_BUFFER_+
-                  </button>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
         </section>
       </main>
@@ -232,8 +252,8 @@ export default function ArchivePage() {
       {/* 5. SECCIÓN FAQ (SUPPORT_DATABASE) */}
       <section className={styles.faq_section}>
         <div className={styles.faq_header}>
-          <span className={styles.tag}>[ SUPPORT_DATABASE ]</span>
-          <h3>FREQUENTLY_ASKED_QUESTIONS</h3>
+          <span className={styles.tag}>[ SUPPORT_]</span>
+          <h3>ASKED_QUESTIONS</h3>
         </div>
 
         <div className={styles.faq_grid}>

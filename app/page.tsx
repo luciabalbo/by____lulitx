@@ -73,7 +73,7 @@ export default function LulitxStepOneFixed() {
     setAccessCode(val);
     
     if (val === "404") {
-      // AHORA SÍ: Como el código es correcto, validamos el acceso y guardamos el ID que ya teníamos en el estado
+      //validamos el acceso y guardamos el ID que ya teníamos en el estado
       localStorage.setItem('lulitx_user_id', visitorId);
       setIsSubmitted(true);
       setTimeout(() => { router.push('/archive'); }, 5000);
@@ -146,7 +146,7 @@ export default function LulitxStepOneFixed() {
                         </motion.form>
                       ) : (
                         <motion.div key="challenge" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                          <h3 className={styles['back-title']} style={{ color: '#ffde00' }}>VOS YA SOS VIP</h3>
+                          <h3 className={styles['back-title']} style={{ color: '#fce900' }}>VOS YA SOS VIP</h3>
                           <p style={{ fontFamily: 'monospace', fontSize: '10px', color: '#888', marginBottom: '15px' }}>CÓDIGO DE ACCESO: 404</p>
                           <input 
                             type="text" maxLength={3} placeholder="_ _ _" value={accessCode} onChange={handleCodeChange}
@@ -170,9 +170,6 @@ export default function LulitxStepOneFixed() {
                   <span className={styles['vip-highlight']}>VIP ACCESS GRANTED — UNLIMITED EXPLORATION.</span>
                 </p>
                 <div className={styles['success-line']} />
-                <div className={styles['status-log']}>
-                  ENCRYPTION: <span className={styles['green-text']}>ACTIVE</span> // SYNC: <span className={styles['green-text']}>NEON_CLOUD</span>
-                </div>
               </motion.div>
             )}
           </AnimatePresence>
