@@ -37,10 +37,10 @@ const ARCHIVE_PHOTOS = [
   { id: 21, src: '/produccion/21.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
   { id: 22, src: '/produccion/22.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
   { id: 23, src: '/produccion/23.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
-  { id: 20, src: '/produccion/24.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
-  { id: 21, src: '/produccion/25.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
-  { id: 22, src: '/produccion/26.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
-  { id: 23, src: '/produccion/27.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
+  { id: 24, src: '/produccion/24.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
+  { id: 25, src: '/produccion/25.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 26, src: '/produccion/26.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 27, src: '/produccion/27.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
 ];
 
 // 2. FUNCIÓN DE MEZCLA TIPADA

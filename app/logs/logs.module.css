@@ -140,7 +140,7 @@
   .back,
   .footer,
   .header span {
-    font-family: var(--font-courier), monospace !important;
+    font-family: 'Courier New', Courier, monospace;
     -webkit-text-size-adjust: 100%;
   }
 

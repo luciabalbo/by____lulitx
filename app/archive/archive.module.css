@@ -14,7 +14,7 @@
   min-height: 100vh;
   padding: 40px;
   color: #fff;
-  font-family: var(--font-mono);
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .header {
@@ -27,7 +27,7 @@
 }
 
 .escape_btn {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: inherit;
   color: var(--color-blanco);
   text-decoration: none;
   font-size: 12px;

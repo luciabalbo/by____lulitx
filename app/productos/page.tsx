@@ -344,17 +344,34 @@ export default function ArchivePage() {
           <div className={styles.footer_col}>
             <span className={styles.col_tag}>01_INFO</span>
             <h4>[ NAVIGATION ]</h4>
-            <p className={styles.footer_link}>SHOP_ALL</p>
-            <p className={styles.footer_link}>ARCHIVE</p>
-            <p className={styles.footer_link}>LOGS</p>
+            
+            {/* SHOP_ALL suele ser el home o la sección de productos */}
+            <Link href="/productos" className={styles.footer_link}>
+              SHOP_ALL
+            </Link>
+            
+            <Link href="/archive" className={styles.footer_link}>
+              ARCHIVE
+            </Link>
+            
+            <Link href="/logs" className={styles.footer_link}>
+              LOGS
+            </Link>
           </div>
+
           <div className={styles.footer_col}>
             <span className={styles.col_tag}>02_CONNECT</span>
             <h4>[ SOCIAL ]</h4>
-            <p className={styles.footer_link} onClick={() => window.open('https://www.instagram.com/by_________lulitx/')}>
+            <a 
+              href="https://www.instagram.com/by_________lulitx/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className={styles.footer_link}
+            >
               INSTAGRAM_LINK <span className={styles.arrow}>↗</span>
-            </p>
+            </a>
           </div>
+
           <div className={styles.footer_col}>
             <span className={styles.col_tag}>03_ACCESS</span>
             <h4>[ NEWSLETTER ]</h4>
@@ -365,9 +382,13 @@ export default function ArchivePage() {
             <p className={styles.input_hint}>// ENCRYPTED_CONNECTION_SECURE</p>
           </div>
         </div>
+
         <div className={styles.ticker_container}>
           <div className={styles.ticker_wrapper}>
-            <span className={styles.ticker_text}>© 2026 DESIGN BY LULA - HAY QUE TENER A LA AUDIENCIA CONFUNDIDA</span>
+            <span className={styles.ticker_text}>
+              © 2026 DESIGN BY LULA - HAY QUE TENER A LA AUDIENCIA CONFUNDIDA - 
+              © 2026 DESIGN BY LULA - HAY QUE TENER A LA AUDIENCIA CONFUNDIDA
+            </span>
           </div>
         </div>
       </footer>
