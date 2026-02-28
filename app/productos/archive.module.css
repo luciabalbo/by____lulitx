@@ -691,3 +691,42 @@
     padding-bottom: calc(15px + env(safe-area-inset-bottom));
   }
 }
+
+/* =============================================
+   PARCHE DE TIPOGRAFÍA SISTEMA (MOBILE FIX)
+   ============================================= */
+@media (max-width: 768px) {
+  .container,
+  .hero_title_center,
+  .hero_subtitle,
+  .nav_link,
+  .logo,
+  .menuLinks span,
+  .product_header,
+  .description,
+  .price,
+  .request_btn,
+  .terminal_input,
+  .input_btn,
+  .footer_link,
+  .faq_question,
+  .faq_answer,
+  .cart_status,
+  .topInfo {
+    /* Forzamos Courier New y evitamos que el sistema use su fuente por defecto */
+    font-family: 'Courier New', Courier, monospace !important;
+    
+    /* Evita que iOS agrande la letra automáticamente */
+    -webkit-text-size-adjust: 100%;
+    
+    /* Asegura que el renderizado sea nítido y crudo */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Ajuste para que el glitch no se rompa con la tipografía forzada */
+  .glitch_auto::before, 
+  .glitch_auto::after {
+    font-family: 'Courier New', Courier, monospace !important;
+  }
+}

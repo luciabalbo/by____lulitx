@@ -302,3 +302,18 @@
     opacity: 0.6; /* Un toque más sutil */
   }
 }
+
+/* PARCHE DE TIPOGRAFÍA PARA CELULARES */
+@media (max-width: 768px) {
+  .text, 
+  .name, 
+  .back, 
+  .join-button, 
+  .success-title,
+  .centered-text {
+    /* Forzamos la fuente monoespaciada del sistema para que no use la Serif por defecto */
+    font-family: 'Courier New', Courier, monospace !important;
+    /* Evitamos que el navegador ajuste el tamaño del texto a su antojo */
+    -webkit-text-size-adjust: 100%;
+  }
+}
