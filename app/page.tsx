@@ -53,7 +53,7 @@ export default function LulitxStepOneFixed() {
           // Si es nuevo, guardamos en memoria y pasamos a éxito
           localStorage.setItem('lulitx_user_id', data.user_id);
           setIsSubmitted(true);
-          setTimeout(() => { router.push('/archive'); }, 5000);
+          setTimeout(() => { router.push('/productos'); }, 5000);
         } else {
           // Si ya existe, NO guardamos en memoria todavía, pedimos el 404
           setShowCodeChallenge(true);
