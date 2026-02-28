@@ -106,7 +106,6 @@
 }
 
 .name {
-  font-family: 'Courier New', Courier, monospace;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 22px;
@@ -121,7 +120,6 @@
 .edition { font-size: 10px; letter-spacing: 0.1em; color: #444; font-weight: 700; }
 
 .join-button {
-  font-family: inherit; font-size: 10px; font-weight: bold;
   position: absolute; 
   bottom: 25px; 
   left: 50%;
@@ -158,9 +156,8 @@
 }
 
 .back-title {
-  font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
-  letter-spacing: 0.8em;
+  letter-spacing: 0.5em;
   text-indent: 0.8em;
   color: #fff;
   margin-bottom: 25px;
@@ -187,11 +184,7 @@
   padding: 12px 30px; border-radius: 8px; font-weight: 900;
   letter-spacing: 2px; text-transform: uppercase;
   cursor: pointer; position: relative; overflow: hidden;
-  font-family: inherit; font-size: 10px; font-weight: bold;
-}
-
-.back-link {
-  font-family: inherit; font-size: 10px; font-weight: bold;
+  font-size: 10px; font-weight: bold;
 }
 
 /* 6. TEXTOS Y ÉXITO */
@@ -216,7 +209,7 @@
   width: 90%;
 }
 
-.success-title { font-family: 'Courier New', Courier, monospace;; font-weight: 800; font-size: 28px; font-style: italic; }
+.success-title {font-weight: 800; font-size: 28px; font-style: italic; }
 .success-text { font-size: 10px; letter-spacing: 0.4em; opacity: 0.6; margin-top: 10px; line-height: 1.8; }
 .success-line { width: 50px; height: 1px; background: white; margin-top: 30px; }
 .id-badge { font-size: 8px; color: #666; margin-bottom: 10px; letter-spacing: 2px; }
@@ -302,12 +295,10 @@
   }
   
   .name { 
-    font-family: var(--font-courier), monospace !important;
     font-size: 16px !important; 
   }
 
   .join-button { 
-    font-family: var(--font-courier), monospace !important;
     width: 85%;
     padding: 12px;
     font-size: 9px;
@@ -324,8 +315,6 @@
   .centered-text,
   .back-title,
   .side-text {
-    /* Forzamos la variable de Next.js */
-    font-family: var(--font-courier), monospace !important;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
   }

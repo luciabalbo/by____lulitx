@@ -18,14 +18,7 @@ const courier = Courier_Prime({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${syne.variable} ${courier.variable}`}>
-      <body 
-        style={{ 
-          margin: 0, 
-          background: '#000',
-          /* ESTA LÍNEA ES LA MAGIA PARA IPHONE: */
-          fontFamily: 'var(--font-courier), monospace' 
-        }}
-      >
+      <body style={{ margin: 0, background: '#000' }}>
         {children}
       </body>
     </html>

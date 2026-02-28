@@ -152,7 +152,7 @@ export default function LulitxStepOneFixed() {
                             type="text" maxLength={3} placeholder="_ _ _" value={accessCode} onChange={handleCodeChange}
                             className={styles['email-input']} autoFocus style={{ textAlign: 'center', fontSize: '24px', letterSpacing: '8px' }}
                           />
-                          <p className={styles['status-log']}>NO_TRAICIONA_EL_QUE_TE_AVISA...</p>
+                          <p className={styles['status-log']} style={{ textAlign: 'center', fontSize: '14px' }}>NO_TRAICIONA_EL_QUE_TE_AVISA...</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
