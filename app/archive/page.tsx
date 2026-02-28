@@ -1,316 +1,123 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { motion, AnimatePresence } from "framer-motion";
 import styles from './archive.module.css';
 
-interface CartItem {
+// 1. DEFINIMOS LA ESTRUCTURA PARA VS CODE (TypeScript)
+interface Photo {
   id: number;
-  name: string;
-  price: number;
+  src: string;
+  tag: string;
+  location: string;
 }
 
-const ProductGallery = ({ images }: { images: string[] }) => {
-  const [index, setIndex] = useState(0);
-
-  const nextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIndex((prev) => (prev + 1) % images.length);
-  };
-
-  return (
-    <div className={styles.product_image} onClick={nextImage} style={{ cursor: 'pointer' }}>
-      <AnimatePresence mode="wait">
-        <motion.img 
-          key={index}
-          src={images[index]} 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className={styles.img_main} 
-          alt="Product view" 
-        />
-      </AnimatePresence>
-
-      <div className={styles.image_counter}>
-        FILE_0{index + 1} / 0{images.length}
-      </div>
-
-      <div className={styles.image_meta}>
-        {index === 0 ? "VIEW:PRODUCCION" : index === 1 ? "VIEW:PRODUCTO" : "VIEW:DETALLE"}
-      </div>
-      
-      {images.length > 1 && <div className={styles.gallery_hint}>CLICK_TO_SCAN_→</div>}
-    </div>
-  );
-};
-
-// Afuera del componente principal
-const CustomCursor = () => {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
-  }, []);
-
-  return (
-    <div 
-      style={{
-        position: 'fixed',
-        left: pos.x, top: pos.y,
-        width: '20px', height: '20px',
-        border: '1px solid #0052c9',
-        transform: 'translate(-50%, -50%)',
-        pointerEvents: 'none',
-        zIndex: 10000,
-        transition: 'width 0.2s, height 0.2s'
-      }} 
-    />
-  );
-};
-
-const PRODUCTS_DATA = [
-  {
-    id: 1,
-    name: "POLLERA TRANSFORM",
-    price: 40000,
-    description: "DESMONTABLE (LARGA | CORTA). CINTURA REGULABLE (60CM-90CM). PIEZA DE ARCHIVO ÚNICA.",
-    images: ['/productos/1.png', '/productos/01.png', '/productos/10.png'],
-    tag: "FILE_01"
-  },
-  {
-    id: 2,
-    name: "SHORT INTERVENIDO_v44",
-    price: 27000,
-    description: "CONSTRUCCIÓN HÍBRIDA SHORT+SHORT. CINTURA 88CM. TALLE 44. PIEZA DE ARCHIVO ÚNICA.",
-    images: ['/productos/2.jpg', '/productos/02.png', '/productos/20.png'],
-    tag: "FILE_02"
-  },
-  {
-    id: 3,
-    name: "VESTIDO V_ctrlZ",
-    price: 55000,
-    description: "CONSTRUCCIÓN CASACA+PANTALÓN_ABUELA. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
-    images: ['/productos/3.jpg', '/productos/03.png', '/productos/30.JPG'],
-    tag: "FILE_03"
-  },
-  {
-    id: 4,
-    name: "BUZO A_ctrlX",
-    price: 70000,
-    description: "CONSTRUCCIÓN BUZO+CADENAS. TALLE M. PIEZA DE ARCHIVO ÚNICA.",
-    images: ['/productos/44.png', '/productos/04.png', '/productos/40.png'],
-    tag: "FILE_03"
-  }
+// 1. DATA CON IDs ÚNICOS (Esto elimina el error de "duplicate keys" en consola)
+const ARCHIVE_PHOTOS = [
+  { id: 1, src: '/produccion/01.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 2, src: '/produccion/02.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 3, src: '/produccion/27.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
+  { id: 4, src: '/produccion/04.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
+  { id: 5, src: '/produccion/05.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 6, src: '/produccion/06.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 7, src: '/produccion/07.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
+  { id: 8, src: '/produccion/08.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
+  { id: 9, src: '/produccion/09.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 10, src: '/produccion/10.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 11, src: '/produccion/11.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
+  { id: 12, src: '/produccion/12.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
+  { id: 13, src: '/produccion/13.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 14, src: '/produccion/14.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 15, src: '/produccion/15.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
+  { id: 16, src: '/produccion/16.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
+  { id: 17, src: '/produccion/17.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 18, src: '/produccion/18.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 19, src: '/produccion/19.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
+  { id: 20, src: '/produccion/20.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
+  { id: 21, src: '/produccion/21.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 22, src: '/produccion/22.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 23, src: '/produccion/23.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
+  { id: 20, src: '/produccion/24.jpg', tag: "SESSION_002_B", location: "ARCHIVE_COLLECTION" },
+  { id: 21, src: '/produccion/25.jpg', tag: "SESSION_001_A", location: "ARCHIVE_COLLECTION" },
+  { id: 22, src: '/produccion/26.jpg', tag: "SESSION_001_B", location: "ARCHIVE_COLLECTION" },
+  { id: 23, src: '/produccion/27.jpg', tag: "SESSION_002_A", location: "ARCHIVE_COLLECTION" },
 ];
 
-export default function ArchivePage() {
-  const [visitorId, setVisitorId] = useState("000");
-  const [cart, setCart] = useState<CartItem[]>([]);
+// 2. FUNCIÓN DE MEZCLA TIPADA
+const shuffleArray = (array: Photo[]): Photo[] => {
+  let shuffled = [...array]; 
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = temp;
+  }
+  return shuffled;
+};
+
+export default function ArchiveGalleryPage() {
+  // 3. LE DECIMOS AL ESTADO QUE ES UN ARRAY DE FOTOS
+  const [shuffledPhotos, setShuffledPhotos] = useState<Photo[]>([]); 
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedId = localStorage.getItem('lulitx_user_id');
-    if (savedId) setVisitorId(savedId);
-  }, []);
-
-  const addToCart = (productName: string, price: number) => {
-    const newItem: CartItem = { id: Date.now(), name: productName, price: price };
-    setCart([...cart, newItem]);
-  };
-
-  const executePurchase = () => {
-    const phoneNumber = "543534822456";
-    const intro = `--- SYSTEM_PURCHASE_REQUEST ---\n`;
-    const user = `USER_ID: VISITOR_${visitorId}\n`;
-    const items = cart.map(item => `> [${item.name}] - $${item.price}`).join('\n');
-    const total = `\nTOTAL_VALUE: $${cart.reduce((acc, item) => acc + item.price, 0)}`;
-    const fullMessage = encodeURIComponent(intro + user + items + total + `\n\nAWAITING_EXTRACTION...`);
-    window.open(`https://wa.me/${phoneNumber}?text=${fullMessage}`, '_blank');
-  };
+    setShuffledPhotos(shuffleArray(ARCHIVE_PHOTOS));
+  }, []); 
 
   return (
     <div className={styles.container}>
-      <div className={styles.container}>
-        <CustomCursor />
-      {/* 1. NAV SUPERIOR */}
-      <nav className={styles.header}>
-        <div className={styles.topInfo}>
-          <div className={styles.logo}>LULITX_CORE v2.6</div>
-          <div className={styles.menuLinks}>
-            <span className={styles.glitch}>[ SHOP_ALL ]</span>
-            <span>[ ARCHIVE ]</span>
-            <span>[ LOGS ]</span>
-          </div>
-          <div className={styles.visitorCount}>USERS_ONLINE: 012</div>
+      <header className={styles.header}>
+        <div className={styles.meta_left}>
+          <span className={styles.glitch}>[ RAW_VISUAL_ARCHIVE ]</span>
+          <p>// ACCESSING_DATABASE_v2.6</p>
         </div>
-      </nav>
+        <div className={styles.meta_right}>
+          <span>TOTAL_FILES: {ARCHIVE_PHOTOS.length}</span>
+          <span>STATUS: NO_FOR_SALE</span>
+        </div>
+      </header>
 
-      {/* CARRITO FLOTANTE (BUFFER) */}
+      <main className={styles.grid}>
+        {shuffledPhotos.map((photo) => (
+          <motion.div 
+            key={photo.id} 
+            layout
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={styles.photo_card}
+            whileHover={{ scale: 0.98 }}
+            onClick={() => setSelectedImg(photo.src)}
+          >
+            <img src={photo.src} alt={photo.tag} className={styles.photo} />
+            <div className={styles.photo_info}>
+              <span>{photo.tag}</span>
+              <span className={styles.blue}>{photo.location}</span>
+            </div>
+          </motion.div>
+        ))}
+      </main>
+
       <AnimatePresence>
-        {cart.length > 0 && (
-          <motion.div initial={{ x: 100 }} animate={{ x: 0 }} exit={{ x: 100 }} className={styles.cart_status}>
-            <div className={styles.buffer_header}>SYSTEM_BUFFER</div>
-            <div className={styles.buffer_count}>{cart.length} ITEMS_LOADED</div>
-            <button className={styles.checkout_mini_btn} onClick={executePurchase}>EXECUTE_PURCHASE_↓</button>
+        {selectedImg && (
+          <motion.div 
+            className={styles.modal}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImg(null)}
+          >
+            <motion.img 
+              src={selectedImg} 
+              initial={{ y: 50, scale: 0.9 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 50, scale: 0.9 }}
+              className={styles.modal_img}
+            />
+            <div className={styles.modal_hint}>[ CLICK_ANYWHERE_TO_EXIT ]</div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <main className={styles.workspace}>
-        {/* 2. HERO SECTION */}
-        <section className={styles.heroSection}>
-          <div className={styles.circleContainer}>
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-              className={styles.data_circle}
-            >
-              <span className={styles.circleText}>
-                VOS DALE, QUE YO DALE 🐉
-              </span>
-            </motion.div>
-          </div>
-
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className={styles.manifestoBoxCentered}
-          >
-            <div className={styles.hero_status_center}>
-              <span className={styles.pulse_dot}></span>
-              <span className={styles.tag}>[ STYLING_ACTIVE ]</span>
-            </div>
-
-            <h2 className={styles.hero_title_center}>
-              ESTO NO ES <br/> 
-              <span className={styles.glitch_auto}>DISEÑO,</span> <br/> 
-              <span className={styles.blueBg}>ES ERROR</span>
-            </h2>
-
-            <div className={styles.typing_container}>
-              <p className={styles.hero_subtitle}>|| CON ESTILO</p>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* 3. TRANSICIÓN */}
-        <div className={styles.transition_divider}>
-          <div className={styles.scanner_line} />
-          <div className={styles.transition_meta}>
-            <span>DROP 001</span>
-            <motion.span 
-              animate={{ opacity: [1, 0, 1] }} 
-              transition={{ repeat: Infinity, duration: 1 }}
-            >
-              [ STATUS: BIENVENIDX A TU METAMORFOSIS ]
-            </motion.span>
-            <span>70%_COMPLETE</span>
-          </div>
-        </div>
-
-        {/* 4. SECCION CATÁLOGO ÚNICA */}
-        {/* 4. SECCION CATÁLOGO ÚNICA - AUTOMATIZADA */}
-        <section className={styles.catalog_section}>
-          <div className={styles.product_grid}>
-            {PRODUCTS_DATA.map((product) => (
-              <motion.div 
-                key={product.id}
-                whileInView={{ opacity: 1, y: 0 }} 
-                initial={{ opacity: 0, y: 20 }}
-                className={styles.product_card}
-              >
-                {/* Usamos el componente de galería que ya tenés */}
-                <ProductGallery images={product.images} />
-
-                <div className={styles.product_info}>
-                  <div className={styles.product_header}>
-                    <span>{product.tag}</span>
-                    <span>[ IN_STOCK ]</span>
-                  </div>
-                  <h3>{product.name}</h3>
-                  <p className={styles.description}>
-                    {product.description}
-                  </p>
-                  <div className={styles.product_footer}>
-                    <span className={styles.price}>${product.price.toLocaleString()}</span>
-                    <button 
-                      className={styles.request_btn} 
-                      onClick={() => addToCart(product.name, product.price)}
-                    >
-                      COMPRAR_{product.name.split(' ')[0]}_+
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      </main>
-
-      {/* 5. SECCIÓN FAQ (SUPPORT_DATABASE) */}
-      <section className={styles.faq_section}>
-        <div className={styles.faq_header}>
-          <span className={styles.tag}>[ SUPPORT_]</span>
-          <h3>ASKED_QUESTIONS</h3>
-        </div>
-
-        <div className={styles.faq_grid}>
-          {[
-            { q: "ESTADO_DE_ENVÍOS", a: "Realizamos envíos a todo MI PAÍS (Arg). El carrito de compras te re-dirige a wpp, ahí coordinamos el envío." },
-            { q: "POLÍTICA_DE_RECONSTRUCCIÓN", a: "Al ser piezas únicas de archivo, no realizamos cambios por talle. Verificá bien las medidas antes de la extracción." },
-            { q: "MÉTODOS_DE_PAGO", a: "El carrito de compras te re-dirige a wpp, ahí coordinamos el envío o retiro de la prenda y el pago." }
-          ].map((item, i) => (
-            <details key={i} className={styles.faq_item}>
-              <summary className={styles.faq_question}>
-                <span className={styles.yellow}>&gt;</span> {item.q}
-              </summary>
-              <p className={styles.faq_answer}>{item.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      {/* 6. FOOTER */}
-      <footer className={styles.footer_main}>
-        <div className={styles.footer_grid}>
-          <div className={styles.footer_col}>
-            <span className={styles.col_tag}>01_INFO</span>
-            <h4>[ NAVIGATION ]</h4>
-            <p className={styles.footer_link}>SHOP_ALL</p>
-            <p className={styles.footer_link}>ARCHIVE</p>
-            <p className={styles.footer_link}>LOGS</p>
-          </div>
-
-          <div className={styles.footer_col}>
-            <span className={styles.col_tag}>02_CONNECT</span>
-            <h4>[ SOCIAL ]</h4>
-            <p className={styles.footer_link} onClick={() => window.open('https://www.instagram.com/by_________lulitx/')}>
-              INSTAGRAM_LINK <span className={styles.arrow}>↗</span>
-            </p>
-          </div>
-
-          <div className={styles.footer_col}>
-            <span className={styles.col_tag}>03_ACCESS</span>
-            <h4>[ NEWSLETTER ]</h4>
-            <div className={styles.newsletter_wrapper}>
-              <input type="text" placeholder="ENTER_EMAIL_FOR_UPDATES" className={styles.terminal_input} />
-              <button className={styles.input_btn}>SUBMIT</button>
-            </div>
-            <p className={styles.input_hint}>// ENCRYPTED_CONNECTION_SECURE</p>
-          </div>
-        </div>
-
-        <div className={styles.ticker_container}>
-          <div className={styles.ticker_wrapper}>
-            <span className={styles.ticker_text}>
-              © 2026 DESIGN BY LULA - HAY QUE TENER A LA AUDIENCIA CONFUNDIDA
-            </span>
-          </div>
-        </div>
-      </footer>
-    </div>
+      <div className={styles.scanner_overlay} />
     </div>
   );
 }

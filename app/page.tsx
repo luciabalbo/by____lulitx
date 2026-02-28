@@ -76,7 +76,7 @@ export default function LulitxStepOneFixed() {
       //validamos el acceso y guardamos el ID que ya teníamos en el estado
       localStorage.setItem('lulitx_user_id', visitorId);
       setIsSubmitted(true);
-      setTimeout(() => { router.push('/archive'); }, 5000);
+      setTimeout(() => { router.push('/productos'); }, 5000);
     }
   };
 
