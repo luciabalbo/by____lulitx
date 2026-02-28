@@ -134,28 +134,19 @@
   }
 }
 
-/* =============================================
-   PARCHE DE TIPOGRAFÍA LOGS (MOBILE FIX)
-   ============================================= */
 @media (max-width: 768px) {
   .container,
   .text,
   .back,
   .footer,
-  .section {
-    /* Forzamos Courier New en todos los elementos del Manifiesto */
-    font-family: 'Courier New', Courier, monospace !important;
-    
-    /* Evita que el sistema operativo cambie el tamaño o la fuente */
+  .header span {
+    font-family: var(--font-courier), monospace !important;
     -webkit-text-size-adjust: 100%;
-    
-    /* Mantenemos el renderizado crudo */
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
   }
 
-  /* Aseguramos que el botón de escape centrado también mantenga la fuente */
-  .back {
-    font-family: 'Courier New', Courier, monospace !important;
+  .text {
+    /* Ajuste de tamaño para que el clamp no se vuelva loco en Safari */
+    font-size: clamp(1.2rem, 10vw, 2rem) !important;
+    letter-spacing: -1px;
   }
 }

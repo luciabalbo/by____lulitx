@@ -291,29 +291,42 @@
 }
 
 @media (max-width: 480px) {
-  .bottom-edge {
-    bottom: 25px; /* Un poco más arriba en mobile para que no lo tape el navegador */
+  .main-viewport {
+    position: relative; /* Evita errores de scroll en Safari */
+    min-height: 100dvh;
+  }
+
+  .the-card {
+    width: 300px; /* Un poco más pequeña para iPhones mini */
+    height: 190px;
   }
   
-  .centered-text {
-    font-size: 7px;
-    letter-spacing: 0.5em; /* Reducimos el espacio solo en mobile para que entre */
-    text-indent: 0.5em;
-    opacity: 0.6; /* Un toque más sutil */
+  .name { 
+    font-family: var(--font-courier), monospace !important;
+    font-size: 16px !important; 
+  }
+
+  .join-button { 
+    font-family: var(--font-courier), monospace !important;
+    width: 85%;
+    padding: 12px;
+    font-size: 9px;
   }
 }
 
-/* PARCHE DE TIPOGRAFÍA PARA CELULARES */
+/* EL PARCHE DEFINITIVO PARA IPHONE */
 @media (max-width: 768px) {
   .text, 
   .name, 
   .back, 
   .join-button, 
   .success-title,
-  .centered-text {
-    /* Forzamos la fuente monoespaciada del sistema para que no use la Serif por defecto */
-    font-family: 'Courier New', Courier, monospace !important;
-    /* Evitamos que el navegador ajuste el tamaño del texto a su antojo */
+  .centered-text,
+  .back-title,
+  .side-text {
+    /* Forzamos la variable de Next.js */
+    font-family: var(--font-courier), monospace !important;
     -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
   }
 }

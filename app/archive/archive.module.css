@@ -136,39 +136,23 @@
     z-index: 10;
 }
 
-/* =============================================
-   PARCHE DE TIPOGRAFÍA ARCHIVO (MOBILE FIX)
-   ============================================= */
 @media (max-width: 768px) {
   .container,
   .header,
   .escape_btn,
   .photo_info,
-  .modal_hint,
   .meta_left span,
   .meta_right span {
-    /* Forzamos Courier New en todo el sistema de archivo */
-    font-family: 'Courier New', Courier, monospace !important;
-    
-    /* Evita ajustes automáticos del navegador móvil */
+    font-family: var(--font-courier), monospace !important;
     -webkit-text-size-adjust: 100%;
-    
-    /* Renderizado crudo y técnico */
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
   }
 
-  /* Ajuste específico para el grid en celulares muy chicos */
   .grid {
-    grid-template-columns: 1fr; /* Una sola columna para que las fotos no queden minúsculas */
+    grid-template-columns: 1fr; /* Una columna para evitar que las fotos se vean minúsculas */
   }
 
   .photo_card:nth-child(3n) {
-    grid-column: span 1; /* Cancelamos el span doble en mobile para evitar huecos raros */
+    grid-column: span 1;
     grid-row: span 1;
-  }
-  
-  .escape_btn {
-    font-family: 'Courier New', Courier, monospace !important;
   }
 }
