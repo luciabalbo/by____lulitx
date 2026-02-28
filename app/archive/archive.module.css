@@ -26,6 +26,46 @@
   font-size: 12px;
 }
 
+.escape_btn {
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--color-blanco);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  padding: 5px 15px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.escape_btn:hover {
+  opacity: 1;
+  color: var(--color-rojo);
+  border: 1px solid var(--color-rojo);
+  box-shadow: 0 0 15px var(--color-rojo-glow);
+}
+
+/* Ajuste para mobile para que no se pise con los costados */
+@media (max-width: 768px) {
+  .escape_btn {
+    position: static;
+    transform: none;
+    order: 3; /* Lo manda al final o lo acomoda según tu flex */
+    font-size: 10px;
+    margin-top: 10px;
+  }
+  
+  .header {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+    padding: 20px;
+  }
+}
+
 /* Grid estilo Masonry */
 .grid {
   display: grid;

@@ -1,126 +1,135 @@
-.terminal_container {
+.container {
   background-color: var(--color-negro);
+  color: var(--color-blanco);
   min-height: 100vh;
-  padding: 80px 12%;
-  font-family: 'Courier New', monospace;
-  position: relative;
-  overflow-x: hidden;
+  padding: 0 5%;
   background-image: var(--bg-grid);
   background-size: 50px 50px;
+  background-attachment: fixed; /* El fondo se queda quieto al scrollear */
 }
 
-/* EFECTO CRT (Tubo de tele viejo) */
-.crt_overlay {
+.header {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle, rgba(18, 16, 16, 0) 40%, rgba(0, 0, 0, 0.5) 100%);
-  pointer-events: none;
-  z-index: 5;
-}
-
-.scanline {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%);
-  background-size: 100% 4px;
-  animation: scan 8s linear infinite;
-  z-index: 6;
-  pointer-events: none;
-}
-
-@keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-
-.nav_header {
+  top: 0; 
+  left: 0; 
+  width: 100%;
+  padding: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Esto centra el contenido horizontalmente */
   align-items: center;
-  border-bottom: 3px double var(--color-azul);
-  padding-bottom: 15px;
-  margin-bottom: 60px;
+  z-index: 100;
+  background: linear-gradient(to bottom, var(--color-negro) 40%, transparent 100%);
 }
 
-.red_dot {
-  width: 12px; height: 12px;
-  background: var(--color-rojo);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--color-rojo);
-  animation: blink 0.8s infinite alternate;
+/* El botón de escape igual que en el archivo */
+.back {
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--color-blanco);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  padding: 5px 15px;
+  /* El truco para que quede clavado en el centro */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-@keyframes blink { from { opacity: 1; } to { opacity: 0.3; } }
-
-.exit_btn {
-  font-size: 14px;
+.back:hover {
+  opacity: 1;
   color: var(--color-rojo);
   border: 1px solid var(--color-rojo);
-  padding: 5px 15px;
-  text-decoration: none;
-  transition: 0.3s;
+  box-shadow: 0 0 15px var(--color-rojo-glow);
 }
 
-.exit_btn:hover {
-  background: var(--color-rojo);
-  color: var(--color-blanco);
-  box-shadow: 0 0 20px var(--color-rojo-glow);
+/* Ajuste Mobile para que no se rompa nada */
+@media (max-width: 768px) {
+  .header {
+    padding: 20px;
+  }
+  
+  .back {
+    font-size: 10px;
+    letter-spacing: 1px;
+    width: auto;
+    white-space: nowrap;
+  }
 }
 
-/* TIPOS DE LÍNEA */
-.line_box { margin-bottom: 20px; line-height: 1.2; }
-
-.header { font-size: 1.6rem; font-weight: 900; letter-spacing: -1px; }
-
-.highlight { 
-  background-color: var(--color-azul);
-  color: var(--color-blanco) !important;
-  display: inline-block;
-  padding: 0 10px;
-  font-weight: bold;
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
 }
 
-.rojo.highlight { background-color: var(--color-rojo); }
+.section {
+  min-height: 80vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 0 20px;
+}
 
-.big_header {
-  font-size: clamp(2rem, 8vw, 4rem);
+.text {
+  /* FUENTE COURIER NEW PARA TODO EL MANIFIESTO */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(1.8rem, 8vw, 5.5rem); 
   font-weight: 900;
-  color: var(--color-rojo);
-  text-shadow: 3px 3px 0px var(--color-azul);
-  margin: 50px 0;
+  line-height: 1.1;
   text-transform: uppercase;
+  max-width: 1100px;
+  letter-spacing: -2px; /* Un poco de tracking negativo para el look brutalista */
+  word-wrap: break-word;
 }
 
-.glitch {
-  font-style: italic;
-  text-decoration: line-through;
-  color: var(--color-amarillo);
-  animation: shake 0.5s infinite;
-}
-
-@keyframes shake {
-  0% { transform: translate(0); }
-  25% { transform: translate(2px, -2px); }
-  50% { transform: translate(-2px, 2px); }
-  100% { transform: translate(0); }
-}
-
-.system { font-size: 12px; opacity: 0.5; text-transform: uppercase; }
-
-/* COLORES */
-.amarillo { color: var(--color-amarillo); }
-.azul { color: var(--color-azul); }
-.rojo { color: var(--color-rojo); }
+/* Colores de tu paleta */
 .white { color: var(--color-blanco); }
 
-.terminal_cursor { color: var(--color-amarillo); font-size: 24px; }
-
-.terminal_footer {
-  position: fixed;
-  bottom: 0; left: 0; width: 100%;
-  padding: 20px 40px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  background: rgba(0,0,0,0.8);
-  border-top: 1px solid #222;
+.rojo { 
+  color: var(--color-rojo); 
+  text-shadow: 0 0 15px var(--color-rojo-glow); 
 }
 
-.footer_block { display: flex; gap: 20px; }
+.azul { 
+  color: var(--color-azul); 
+  text-shadow: 0 0 15px var(--color-azul-glow); 
+}
+
+.amarillo { 
+  color: var(--color-amarillo);
+  text-shadow: 0 0 10px rgba(252, 233, 0, 0.3);
+}
+
+.footer {
+  padding: 100px 0 60px 0;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  opacity: 0.2;
+}
+
+/* Optimización para Mobile */
+@media (max-width: 768px) {
+  .text {
+    /* Bajamos el mínimo a 1rem y el máximo a 1.8rem */
+    font-size: clamp(1rem, 10vw, 1.8rem); 
+    letter-spacing: -0.5px; /* Menos tracking negativo para que se lea mejor en chiquito */
+    line-height: 1.1; /* Un poquito más de aire entre líneas para que no se peguen las letras */
+    padding: 0 15px; /* Evita que el texto toque los bordes físicos de la pantalla */
+  }
+  
+  .section {
+    min-height: 40vh; /* Reducimos el alto para que no haya que scrollear tanto entre frases */
+  }
+
+  .header {
+    padding: 15px;
+  }
+}

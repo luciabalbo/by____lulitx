@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react'; 
 import { motion, AnimatePresence } from "framer-motion";
+import Link from 'next/link';
 import styles from './archive.module.css';
 
 // 1. DEFINIMOS LA ESTRUCTURA PARA VS CODE (TypeScript)
@@ -67,9 +68,12 @@ export default function ArchiveGalleryPage() {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.meta_left}>
-          <span className={styles.glitch}>[ RAW_VISUAL_ARCHIVE ]</span>
-          <p>// ACCESSING_DATABASE_v2.6</p>
+          <span className={styles.glitch}>[ ARCHIVE_COLLECTION ]</span>
         </div>
+        {/* BOTÓN DE ESCAPE CENTRADO */}
+        <Link href="/productos" className={styles.escape_btn}>
+          [ ESCAPE_SYSTEM ]
+        </Link>
         <div className={styles.meta_right}>
           <span>TOTAL_FILES: {ARCHIVE_PHOTOS.length}</span>
           <span>STATUS: NO_FOR_SALE</span>
