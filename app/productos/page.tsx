@@ -154,9 +154,11 @@ export default function ArchivePage() {
       try {
         const res = await fetch('/api/productos');
         const data = await res.json();
-        setProducts(data);
+        // Validación para que no rompa si data no es array
+        setProducts(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("DB_FETCH_ERROR");
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -174,31 +176,37 @@ export default function ArchivePage() {
 
   const executePurchase = async () => {
     const productIds = cart.map(item => item.id);
+    const phoneNumber = "543534822456";
+    
+    // Armamos el mensaje de WhatsApp primero por seguridad
+    const intro = `--- COMPRA EN BY____LULITX ---\n`;
+    const user = `USER_ID: VISITOR_${visitorId}\n`;
+    const items = cart.map(item => `> [${item.name}] - $${item.price}`).join('\n');
+    const total = `\nTOTAL_VALUE: $${cart.reduce((acc, item) => acc + item.price, 0)}`;
+    const fullMessage = encodeURIComponent(intro + user + items + total + `\n\nGRACIAS :)))`);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${fullMessage}`;
 
     try {
-      const res = await fetch('/api/productos', {
+      // Intentamos avisar a la DB
+      await fetch('/api/productos', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productIds }),
       });
+      
+      // Abrimos WhatsApp
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
-      if (res.ok) {
-        const phoneNumber = "543534822456";
-        const intro = `--- SYSTEM_PURCHASE_REQUEST ---\n`;
-        const user = `USER_ID: VISITOR_${visitorId}\n`;
-        const items = cart.map(item => `> [${item.name}] - $${item.price}`).join('\n');
-        const total = `\nTOTAL_VALUE: $${cart.reduce((acc, item) => acc + item.price, 0)}`;
-        const fullMessage = encodeURIComponent(intro + user + items + total + `\n\nAWAITING_EXTRACTION...`);
-        
-        window.open(`https://wa.me/${phoneNumber}?text=${fullMessage}`, '_blank');
-
-        setProducts(prev => prev.map(p => 
-          productIds.includes(p.id) ? { ...p, in_stock: false } : p
-        ));
-        setCart([]);
-      }
+      // Limpiamos todo visualmente
+      setProducts(prev => prev.map(p => 
+        productIds.includes(p.id) ? { ...p, in_stock: false } : p
+      ));
+      setCart([]);
+      
     } catch (err) {
-      alert("SYSTEM_SYNC_ERROR: REINTENTAR.");
+      // Si la DB falla, igual abrimos WhatsApp para no perder la venta
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      setCart([]);
     }
   };
 
@@ -207,7 +215,6 @@ export default function ArchivePage() {
       <CustomCursor />
       <nav className={styles.header}>
         <div className={styles.topInfo}>
-          {/* Logo que vuelve al inicio */}
           <Link href="/" className={styles.logo}>LULITX_CORE v2.6</Link>
           
           <div className={styles.menuLinks}>
@@ -224,7 +231,6 @@ export default function ArchivePage() {
             </Link>
           </div>
 
-          {/* ID REAL DEL USUARIO */}
           <div className={styles.visitorCount}>
             USER_ID: {visitorId}
           </div>
@@ -280,7 +286,7 @@ export default function ArchivePage() {
             {loading ? (
               <div className={styles.loading_txt}>CONNECTING_TO_ARCHIVE_...</div>
             ) : (
-              products.map((product) => (
+              Array.isArray(products) && products.map((product) => (
                 <motion.div 
                   key={product.id}
                   whileInView={{ opacity: 1, y: 0 }} 
@@ -319,7 +325,6 @@ export default function ArchivePage() {
         </section>
       </main>
 
-      {/* FAQ y FOOTER permanecen igual */}
       <section className={styles.faq_section}>
         <div className={styles.faq_header}>
           <span className={styles.tag}>[ SUPPORT_]</span>
@@ -344,30 +349,15 @@ export default function ArchivePage() {
           <div className={styles.footer_col}>
             <span className={styles.col_tag}>01_INFO</span>
             <h4>[ NAVIGATION ]</h4>
-            
-            {/* SHOP_ALL suele ser el home o la sección de productos */}
-            <Link href="/productos" className={styles.footer_link}>
-              SHOP_ALL
-            </Link>
-            
-            <Link href="/archive" className={styles.footer_link}>
-              ARCHIVE
-            </Link>
-            
-            <Link href="/logs" className={styles.footer_link}>
-              LOGS
-            </Link>
+            <Link href="/productos" className={styles.footer_link}>SHOP_ALL</Link>
+            <Link href="/archive" className={styles.footer_link}>ARCHIVE</Link>
+            <Link href="/logs" className={styles.footer_link}>LOGS</Link>
           </div>
 
           <div className={styles.footer_col}>
             <span className={styles.col_tag}>02_CONNECT</span>
             <h4>[ SOCIAL ]</h4>
-            <a 
-              href="https://www.instagram.com/by_________lulitx/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className={styles.footer_link}
-            >
+            <a href="https://www.instagram.com/by_________lulitx/" target="_blank" rel="noopener noreferrer" className={styles.footer_link}>
               INSTAGRAM_LINK <span className={styles.arrow}>↗</span>
             </a>
           </div>
