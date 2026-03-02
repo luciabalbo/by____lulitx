@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
@@ -10,7 +10,6 @@ export default function LulitxStepOneFixed() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [visitorId, setVisitorId] = useState("");
-  
   const [showCodeChallenge, setShowCodeChallenge] = useState(false);
   const [accessCode, setAccessCode] = useState("");
 
@@ -19,11 +18,23 @@ export default function LulitxStepOneFixed() {
   const mouseX = useSpring(x, { stiffness: 100, damping: 20 });
   const mouseY = useSpring(y, { stiffness: 100, damping: 20 });
 
+  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
+
   const rotateX = useTransform(mouseY, [-0.5, 0.5], [10, -10]);
   const rotateY = useTransform(mouseX, [-0.5, 0.5], [-10, 10]);
 
+  const glowX = useTransform(mouseX, [-0.5, 0.5], ["40%", "60%"]);
+  const glowY = useTransform(mouseY, [-0.5, 0.5], ["40%", "60%"]);
+
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, []);
+
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
-    if (isFlipped) return;
     const rect = event.currentTarget.getBoundingClientRect();
     x.set((event.clientX - rect.left) / rect.width - 0.5);
     y.set((event.clientY - rect.top) / rect.height - 0.5);
@@ -32,7 +43,6 @@ export default function LulitxStepOneFixed() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email');
 
@@ -42,20 +52,15 @@ export default function LulitxStepOneFixed() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-
       const data = await response.json();
 
       if (response.ok) {
-        // Guardamos el ID en el estado SIEMPRE (sea nuevo o viejo)
         setVisitorId(data.user_id); 
-        
         if (data.is_new) {
-          // Si es nuevo, guardamos en memoria y pasamos a éxito
           localStorage.setItem('lulitx_user_id', data.user_id);
           setIsSubmitted(true);
           setTimeout(() => { router.push('/productos'); }, 5000);
         } else {
-          // Si ya existe, NO guardamos en memoria todavía, pedimos el 404
           setShowCodeChallenge(true);
         }
       } else {
@@ -71,9 +76,7 @@ export default function LulitxStepOneFixed() {
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setAccessCode(val);
-    
     if (val === "404") {
-      //validamos el acceso y guardamos el ID que ya teníamos en el estado
       localStorage.setItem('lulitx_user_id', visitorId);
       setIsSubmitted(true);
       setTimeout(() => { router.push('/productos'); }, 5000);
@@ -81,20 +84,34 @@ export default function LulitxStepOneFixed() {
   };
 
   return (
-    <div className={styles['main-viewport']}>
-      <div className={styles['top-glow']} />
+    <div className={styles['main-viewport']} onMouseMove={handleMouseMove}>
+      <div className={styles['custom-cursor']} style={{ left: cursorPos.x, top: cursorPos.y }} />
+      <div className={styles['scanline']} />
+      <motion.div className={styles['top-glow']} style={{ left: glowX, top: glowY }} />
 
       <div className={styles['absolute-layer']} style={{ pointerEvents: 'none', width: '100%', height: '100%' }}>
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 0.8, x: 0 }} transition={{ delay: 0.5 }} className={`${styles['side-text']} ${styles['left-txt']}`}>
+        <motion.div 
+          animate={{ opacity: [0.4, 0.8, 0.5, 0.8] }}
+          transition={{ repeat: Infinity, duration: 4, times: [0, 0.1, 0.2, 1] }}
+          className={`${styles['side-text']} ${styles['left-txt']}`}
+        >
           BY ARTIST FOR ARTIST <br /> NO ES DISEÑO, <br /> ES ERROR CON ESTILO.
         </motion.div>
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 0.8, x: 0 }} transition={{ delay: 0.7 }} className={`${styles['side-text']} ${styles['right-txt']}`}>
+        <motion.div 
+          animate={{ opacity: [0.4, 0.8, 0.6, 0.8] }}
+          transition={{ repeat: Infinity, duration: 5, times: [0, 0.05, 0.15, 1], delay: 1 }}
+          className={`${styles['side-text']} ${styles['right-txt']}`}
+        >
           ARCHIVE DIGITAL <br /> BY LULITX STUDIO
         </motion.div>
       </div>
 
       <div className={`${styles['absolute-layer']} ${styles['top-edge']}`}>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ duration: 1.5 }} className={styles['centered-text']}>
+        <motion.div 
+          animate={{ letterSpacing: ["1.2em", "1.4em", "1.2em"] }}
+          transition={{ repeat: Infinity, duration: 8 }}
+          className={styles['centered-text']}
+        >
           SEE YOU SOON
         </motion.div>
       </div>
@@ -106,11 +123,7 @@ export default function LulitxStepOneFixed() {
               <motion.div 
                 key="card"
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ 
-                  opacity: 1, scale: 1, y: 0,
-                  rotateY: isFlipped ? 180 : 0 
-                }}
-                onMouseMove={handleMouseMove}
+                animate={{ opacity: 1, scale: 1, y: 0, rotateY: isFlipped ? 180 : 0 }}
                 onMouseLeave={() => { x.set(0); y.set(0); }}
                 style={{ 
                   rotateX: isFlipped ? 0 : rotateX, 
@@ -122,14 +135,25 @@ export default function LulitxStepOneFixed() {
               >
                 <div className={styles['card-front']} style={{ visibility: isFlipped ? 'hidden' : 'visible' }}>
                   <div className={styles['metal-finish']}><div className={styles.shine} /></div>
-                  <div className={styles['card-body']} style={{ transform: "translateZ(40px)" }}>
+                  
+                  <div className={styles['card-header']}>
                     <span className={styles['tag-label']}>ACCESS VIP</span>
+                  </div>
+                  
+                  <div className={styles['card-body']} style={{ transform: "translateZ(40px)" }}>
                     <h2 className={styles.name}>by____lulitx</h2>
                     <p className={styles.edition}>SEE YOU SOON <br /> DROP 001 — 2026</p>
                   </div>
-                  <button onClick={() => setIsFlipped(true)} className={styles['join-button']} style={{ transform: "translateZ(60px) translateX(-50%)" }}>
-                    ACCESS VIP
-                  </button>
+                  
+                  <div className={styles['card-footer']}>
+                    <button 
+                      onClick={() => setIsFlipped(true)} 
+                      className={styles['join-button']} 
+                      style={{ transform: "translateZ(60px)" }}
+                    >
+                      ACCESS VIP
+                    </button>
+                  </div>
                 </div>
 
                 <div className={styles['card-back']} style={{ visibility: isFlipped ? 'visible' : 'hidden' }}>
