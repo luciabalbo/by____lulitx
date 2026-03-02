@@ -240,9 +240,9 @@ export default function ArchivePage() {
       <AnimatePresence>
         {cart.length > 0 && (
           <motion.div initial={{ x: 100 }} animate={{ x: 0 }} exit={{ x: 100 }} className={styles.cart_status}>
-            <div className={styles.buffer_header}>SYSTEM_BUFFER</div>
+            <div className={styles.buffer_header}>VOS DALE, QUE YO DALE 🐉</div>
             <div className={styles.buffer_count}>{cart.length} ITEMS_LOADED</div>
-            <button className={styles.checkout_mini_btn} onClick={executePurchase}>EXECUTE_PURCHASE_↓</button>
+            <button className={styles.checkout_mini_btn} onClick={executePurchase}>EJECUTAR_COMPRA↓</button>
           </motion.div>
         )}
       </AnimatePresence>

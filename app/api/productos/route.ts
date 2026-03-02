@@ -104,20 +104,15 @@ export async function GET() {
 export async function PATCH(request: Request) {
   try {
     const { productIds, setInStock } = await request.json();
+    
+    // Si mandás setInStock (desde el admin), usa ese valor. 
+    // Si no mandás nada (desde el carrito), pone false.
+    const nuevoEstado = setInStock === true ? true : false;
 
-    // Si mandamos 'setInStock', usamos ese valor (true o false)
-    // Si NO mandamos nada (como hace el carrito), por defecto ponemos false
-    const newStockStatus = setInStock !== undefined ? setInStock : false;
-
-    await sql`
-      UPDATE productos 
-      SET in_stock = ${newStockStatus} 
-      WHERE id = ANY(${productIds});
-    `;
-
-    return NextResponse.json({ message: "STOCK_UPDATED", status: newStockStatus });
+    await sql`UPDATE productos SET in_stock = ${nuevoEstado} WHERE id = ANY(${productIds});`;
+    
+    return NextResponse.json({ message: "STOCK_UPDATED" });
   } catch (error: any) {
-    console.error("PATCH_ERROR:", error);
     return NextResponse.json({ message: "UPDATE_ERROR" }, { status: 500 });
   }
 }
