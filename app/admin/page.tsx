@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-// Definimos qué tiene un producto para que TypeScript no se queje
 interface Product {
   id: number;
   name: string;
@@ -9,16 +8,28 @@ interface Product {
 }
 
 export default function AdminPage() {
-  // Le decimos al estado que va a recibir una lista de Productos
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
+
+  // --- CONFIGURÁ TU CLAVE ACÁ ---
+  const ADMIN_PASSWORD = "elenanomascooldelplaneta"; 
+
+  useEffect(() => {
+    const pass = prompt("INGRESE CLAVE DE ACCESO:");
+    if (pass === ADMIN_PASSWORD) {
+      setAuthorized(true);
+      fetchData();
+    } else {
+      alert("ACCESO DENEGADO");
+      window.location.href = "/"; // Lo manda al inicio si falla
+    }
+  }, []);
 
   const fetchData = async () => {
     try {
       const res = await fetch('/api/productos');
       const data = await res.json(); 
-      
-      // Si data es un array, lo guardamos. Si no, mandamos lista vacía.
       if (Array.isArray(data)) {
         setProducts(data);
       } else {
@@ -31,10 +42,6 @@ export default function AdminPage() {
       setLoading(false);
     }
   };
-
-  useEffect(() => { 
-    fetchData(); 
-  }, []);
 
   const handleStock = async (id: number, currentStock: boolean) => {
     try {
@@ -51,6 +58,8 @@ export default function AdminPage() {
       alert("Error al actualizar el stock");
     }
   };
+
+  if (!authorized) return <div style={{background:'#000', height:'100vh'}} />;
 
   return (
     <div style={{ background: '#000', color: '#fff', minHeight: '100vh', padding: '20px', fontFamily: 'monospace' }}>
