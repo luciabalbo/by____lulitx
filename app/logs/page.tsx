@@ -7,16 +7,17 @@ import styles from './logs.module.css';
 const MANIFIESTO_LINES = [
   { text: "by____lulitx no es una marca, es un proceso que está en constante movimiento.", color: "white" },
   { text: "Acá no se diseña: se prueba, se rompe, se vuelve a intentar.", color: "amarillo" },
-  { text: "No es diseño, es error con estilo.", color: "azul" },
+  { text: "Esto no es diseño, es error con estilo.", color: "azul" },
   { text: "No estamos copiando, estamos reescribiendo el sistema.", color: "rojo" },
-  { text: "ERROR 404: ESTILO NO ENCONTRADO.", color: "white" },
-  { text: "No seguimos tendencias, las desarmamos. No compramos moda, la reescribimos.", color: "amarillo" },
+  { text: "No seguimos tendencias, las desarmamos. No compramos moda, la reescribimos.", color: "white" },
+  { text: "ERROR 404: ESTILO NO ENCONTRADO.", color: "amarillo" },
   { text: "En by____lulitx no hay talles ni reglas claras.", color: "azul" },
   { text: "Hay mutaciones, versiones, piezas que no estuvieron nunca y que ahora existen. ", color: "rojo" },
   { text: "Cada pieza tiene historia, cada historia es distinta. ", color: "white" },
   { text: "Cambiamos el modo, rompimos la línea, seguimos jugando.", color: "amarillo" },
   { text: "Bienvenidx a tu metamorfosis.", color: "azul" },
-  { text: "Vos dale, que yo dale 🐉", color: "amarillo" }
+  { text: "Vos dale, que yo dale 🐉", color: "rojo" },
+  { text: "GRACIAS TOTALES. LULA :)", color: "white" }
 ];
 
 export default function LogsPage() {
