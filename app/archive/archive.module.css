@@ -14,7 +14,7 @@
   min-height: 100vh;
   padding: 40px;
   color: #fff;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .header {
@@ -143,7 +143,7 @@
   .photo_info,
   .meta_left span,
   .meta_right span {
-    font-family: var(--font-courier), monospace !important;
+    font-family: var(--font-inter), sans-serif;
     -webkit-text-size-adjust: 100%;
   }
 

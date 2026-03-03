@@ -17,7 +17,7 @@
   background-position: 0 0, 15px 15px;
   min-height: 100vh;
   color: var(--color-blanco);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-inter), sans-serif;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@
   position: fixed;
   top: -100%; left: -100%;
   width: 300%; height: 300%;
-  opacity: 0.06;
+  opacity: 0.07;
   pointer-events: none;
   background: url('https://grainy-gradients.vercel.app/noise.svg');
   z-index: 1000;
@@ -728,7 +728,7 @@
   .cart_status,
   .topInfo {
     /* Forzamos Courier New y evitamos que el sistema use su fuente por defecto */
-    font-family: 'Courier New', Courier, monospace !important;
+    font-family: var(--font-inter), sans-serif;
     
     /* Evita que iOS agrande la letra automáticamente */
     -webkit-text-size-adjust: 100%;
@@ -741,6 +741,6 @@
   /* Ajuste para que el glitch no se rompa con la tipografía forzada */
   .glitch_auto::before, 
   .glitch_auto::after {
-    font-family: 'Courier New', Courier, monospace !important;
+    font-family: var(--font-inter), sans-serif;
   }
 }

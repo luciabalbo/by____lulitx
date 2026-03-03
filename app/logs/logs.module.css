@@ -23,7 +23,7 @@
 
 /* El botón de escape igual que en el archivo */
 .back {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-inter), sans-serif;
   color: var(--color-blanco);
   text-decoration: none;
   font-size: 12px;
@@ -78,7 +78,7 @@
 
 .text {
   /* FUENTE COURIER NEW PARA TODO EL MANIFIESTO */
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-inter), sans-serif;
   font-size: clamp(1.8rem, 8vw, 5.5rem); 
   font-weight: 900;
   line-height: 1.1;
@@ -109,7 +109,7 @@
 .footer {
   padding: 100px 0 60px 0;
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-inter), sans-serif;
   font-size: 11px;
   letter-spacing: 4px;
   opacity: 0.2;
@@ -140,7 +140,7 @@
   .back,
   .footer,
   .header span {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-inter), sans-serif;
     -webkit-text-size-adjust: 100%;
   }
 

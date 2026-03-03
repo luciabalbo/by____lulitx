@@ -141,7 +141,7 @@ export default function LulitxStepOneFixed() {
                   </div>
                   
                   <div className={styles['card-body']} style={{ transform: "translateZ(40px)" }}>
-                    <h2 className={styles.name}>by____lulitx</h2>
+                    <h2 className={styles.name}>by lulitx</h2>
                     <p className={styles.edition}>SEE YOU SOON <br /> DROP 001 — 2026</p>
                   </div>
                   

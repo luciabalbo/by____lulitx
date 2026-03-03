@@ -1,23 +1,14 @@
-// app/layout.tsx
-import { Syne, Courier_Prime } from 'next/font/google'
+import { Inter } from 'next/font/google'
 
-const syne = Syne({ 
-  weight: ['400', '700', '800'],
+const inter = Inter({ 
   subsets: ['latin'], 
-  variable: '--font-syne',
+  variable: '--font-inter',
   display: 'swap',
-})
-
-const courier = Courier_Prime({ 
-  weight: ['400', '700'],
-  subsets: ['latin'], 
-  variable: '--font-courier',
-  display: 'block', // 'block' obliga al iPhone a esperar la fuente y no poner la fea
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${syne.variable} ${courier.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body style={{ margin: 0, background: '#000' }}>
         {children}
       </body>
