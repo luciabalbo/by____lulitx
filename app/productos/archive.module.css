@@ -406,7 +406,7 @@
 
 .img_zoom {
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 81vh;
   object-fit: contain;
   border: 1px solid #333;
 }
