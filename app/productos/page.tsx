@@ -289,6 +289,7 @@ export default function ArchivePage() {
               Array.isArray(products) && products.map((product) => (
                 <motion.div 
                   key={product.id}
+                  id={product.name.toLowerCase().replace(/\s+/g, '-')}
                   whileInView={{ opacity: 1, y: 0 }} 
                   initial={{ opacity: 0, y: 20 }}
                   className={styles.product_card}
