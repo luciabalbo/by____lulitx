@@ -15,42 +15,42 @@ const INITIAL_PRODUCTS = [
   {
     name: "SHORT INTERVENIDO_v44",
     price: 22000,
-    description: "CONSTRUCCIÓN HÍBRIDA SHORT+SHORT. CINTURA 88CM. TALLE 44. PIEZA DE ARCHIVO ÚNICA.",
+    description: "CONSTRUCCIÓN HÍBRIDA SHORT + SHORT. CINTURA 88CM. TALLE 44. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/2.jpg', '/productos/02.png', '/productos/20.png'],
     tag: "ARCHIVO_02"
   },
   {
     name: "VESTIDO V_ctrlZ",
     price: 55000,
-    description: "CONSTRUCCIÓN CASACA+PANTALÓN_ABUELA. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
+    description: "CONSTRUCCIÓN CASACA + PANTALÓN. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/3.jpg', '/productos/03.png', '/productos/30.JPG'],
     tag: "ARCHIVO_03"
   },
   {
     name: "PANTALÓN P_ctrlO",
     price: 70000,
-    description: "CONSTRUCCIÓN JEAN_AZUL_BASE+JEAN_GRIS+LLAVEROS. CINTURA 88CM. TALLE 44. LARGO TOTAL 105COM. PIEZA DE ARCHIVO ÚNICA.",
+    description: "CONSTRUCCIÓN JEAN_AZUL_BASE + JEAN_GRIS + LLAVEROS. CINTURA 88CM. TALLE 44. LARGO TOTAL 105COM. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/55.jpg', '/productos/05.png','/productos/5.jpg'],
     tag: "ARCHIVO_04"
   },
   {
     name: "BUZO A_ctrlX",
     price: 63000,
-    description: "CONSTRUCCIÓN BUZO_ADIDAS+CADENAS. TALLE M. PIEZA DE ARCHIVO ÚNICA.",
+    description: "CONSTRUCCIÓN BUZO_ADIDAS + CADENAS. TALLE M. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/44.png', '/productos/04.png', '/productos/40.png'],
     tag: "ARCHIVO_05"
   },
   {
     name: "PANTALÓN P_ctrlC",
     price: 67000,
-    description: "CONSTRUCCIÓN JEAN_AZUL_BASE+JEAN_CELESTE+ARGOLLAS_DORADAS. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
+    description: "CONSTRUCCIÓN JEAN_AZUL_BASE + JEAN_CELESTE + ARGOLLAS_DORADAS. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/6.jpg', '/productos/06.png','/productos/60.png', '/productos/66.jpg'],
     tag: "ARCHIVO_06"
   },
   {
     name: "PANTALÓN P_ctrlY",
     price: 60000,
-    description: "CONSTRUCCIÓN JEAN_NEGRO_BASE+JEAN_AZUL. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
+    description: "CONSTRUCCIÓN JEAN_NEGRO_BASE + JEAN_AZUL. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/7.jpg', '/productos/07.png','/productos/70.png', '/productos/77.jpg'],
     tag: "ARCHIVO_07"
   },
