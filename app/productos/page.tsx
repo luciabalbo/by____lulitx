@@ -210,6 +210,41 @@ export default function ArchivePage() {
     }
   };
 
+  // Agregá este useEffect para manejar el scroll automático
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash || loading) return;
+
+    // Función que hace el scroll
+    const scrollToElement = () => {
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300); // Un mini delay para que la animación de Framer no moleste
+        return true;
+      }
+      return false;
+    };
+
+    // 1. Intento inmediato
+    if (scrollToElement()) return;
+
+    // 2. Si no está, observamos el cambio en el HTML hasta que aparezca
+    const observer = new MutationObserver(() => {
+      if (scrollToElement()) {
+        observer.disconnect(); // Una vez que lo encontró, deja de mirar
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    return () => observer.disconnect();
+  }, [loading, products]);
+
   return (
     <div className={styles.container}>
       <CustomCursor />
