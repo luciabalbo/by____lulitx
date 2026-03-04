@@ -289,7 +289,13 @@ export default function ArchivePage() {
               Array.isArray(products) && products.map((product) => (
                 <motion.div 
                   key={product.id}
-                  id={product.name.toLowerCase().replace(/\s+/g, '-')}
+                  // ESTA LÍNEA LIMPIA TODO: minúsculas, quita acentos y cambia espacios por guiones
+                  id={product.name
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/\s+/g, '-')
+                  }
                   whileInView={{ opacity: 1, y: 0 }} 
                   initial={{ opacity: 0, y: 20 }}
                   className={styles.product_card}
