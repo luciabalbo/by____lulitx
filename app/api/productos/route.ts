@@ -82,6 +82,13 @@ const INITIAL_PRODUCTS = [
     images: ['/productos/020.png', '/productos/002.png'],
     tag: "ARCHIVO_11"
   },
+    {
+    name: "BERMUDA ESTRELLAS",
+    price: 33000,
+    description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 90CM. TALLE 45. PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/003.JPG', '/productos/030.png', '/productos/300.png', '/productos/303.jpg'],
+    tag: "ARCHIVO_12"
+  },
   // --- PEGÁ LOS OTROS 16 ACÁ ABAJO ---
   // { name: "PRENDA 5", price: 1000, ... },
 ];
