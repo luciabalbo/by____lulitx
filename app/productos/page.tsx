@@ -178,7 +178,7 @@ export default function ArchivePage() {
     const productIds = cart.map(item => item.id);
     const phoneNumber = "543534822456";
     
-    // Armamos el mensaje de WhatsApp primero por seguridad
+    // 1. Armamos el mensaje igual que antes
     const intro = `--- COMPRA EN BY____LULITX ---\n`;
     const user = `USER_ID: VISITOR_${visitorId}\n`;
     const items = cart.map(item => `> [${item.name}] - $${item.price}`).join('\n');
@@ -186,30 +186,34 @@ export default function ArchivePage() {
     const fullMessage = encodeURIComponent(intro + user + items + total + `\n\nGRACIAS :)))`);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${fullMessage}`;
 
+    // 2. IMPORTANTE: En celulares, window.location.href funciona mucho mejor que window.open
+    const redirigirAWA = () => {
+      window.location.href = whatsappUrl;
+    };
+
     try {
-      // Intentamos avisar a la DB
+      // 3. Avisamos a la DB (Ojo: si esto tarda mucho, el navegador puede bloquear el cambio de página)
       await fetch('/api/productos', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productIds }),
       });
       
-      // Abrimos WhatsApp
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-
-      // Limpiamos todo visualmente
+      // 4. Limpiamos estados
       setProducts(prev => prev.map(p => 
         productIds.includes(p.id) ? { ...p, in_stock: false } : p
       ));
       setCart([]);
+
+      // 5. Redirigimos
+      redirigirAWA();
       
     } catch (err) {
-      // Si la DB falla, igual abrimos WhatsApp para no perder la venta
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      // Si falla, igual mandamos
       setCart([]);
+      redirigirAWA();
     }
   };
-
   // Agregá este useEffect para manejar el scroll automático
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
