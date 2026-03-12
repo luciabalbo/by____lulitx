@@ -69,7 +69,7 @@ const INITIAL_PRODUCTS = [
     tag: "ARCHIVO_09"
   },
   {
-    name: "PANTALÓN p_c404",
+    name: "PANTALÓN P_c404",
     price: 33000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 80CM. TALLE 40. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/001.jpg', '/productos/100.PNG','/productos/010.jpg'],
@@ -82,11 +82,18 @@ const INITIAL_PRODUCTS = [
     images: ['/productos/020.png', '/productos/002.png'],
     tag: "ARCHIVO_11"
   },
-    {
+  {
     name: "BERMUDA ESTRELLA",
     price: 33000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 90CM. TALLE 45. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/003.JPG', '/productos/030.png', '/productos/300.png', '/productos/303.jpg'],
+    tag: "ARCHIVO_12"
+  },
+  {
+    name: "PANTALÓN P_v404",
+    price: 22000,
+    description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 64CM. TALLE 32. PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/004.png', '/productos/040.png', '/productos/400.png'],
     tag: "ARCHIVO_12"
   },
   // --- PEGÁ LOS OTROS 16 ACÁ ABAJO ---
