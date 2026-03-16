@@ -35,9 +35,9 @@ const INITIAL_PRODUCTS = [
   },
   {
     name: "BUZO A_ctrlX",
-    price: 63000,
+    price: 65000,
     description: "CONSTRUCCIÓN BUZO + CADENAS. TALLE M. PIEZA DE ARCHIVO ÚNICA.",
-    images: ['/productos/44.png', '/productos/04.png', '/productos/40.png'],
+    images: ['/productos/444.png', '/productos/44.png', '/productos/04.png', '/productos/40.png', '/productos/404.png'],
     tag: "ARCHIVO_05"
   },
   {
@@ -96,16 +96,31 @@ const INITIAL_PRODUCTS = [
     images: ['/productos/004.png', '/productos/040.png', '/productos/400.png'],
     tag: "ARCHIVO_12"
   },
+  {
+    name: "PANTALÓN P_k404",
+    price: 75000,
+    description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 88CM. TALLE 44. PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/005.png', '/productos/050.png', '/productos/500.png', '/productos/055.png'],
+    tag: "ARCHIVO_13"
+  },
+    {
+    name: "POLLERA N_404",
+    price: 65000,
+    description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
+    images: ['/productos/006.png', '/productos/060.png', '/productos/600.png', '/productos/066.png', '/productos/666.png'],
+    tag: "ARCHIVO_14"
+  },
   // --- PEGÁ LOS OTROS 16 ACÁ ABAJO ---
   // { name: "PRENDA 5", price: 1000, ... },
 ];
 
 export async function GET() {
   try {
-    let products = await sql`SELECT * FROM productos ORDER BY id ASC;`; // <-- CAMBIADO A ASC
+    // 1. Pedimos los productos al azar
+    let products = await sql`SELECT * FROM productos ORDER BY RANDOM();`; 
 
     if (products.length === 0) {
-      console.log("Cargando 20 productos...");
+      console.log("Cargando productos iniciales...");
       
       for (const p of INITIAL_PRODUCTS) {
         await sql`
@@ -113,7 +128,8 @@ export async function GET() {
           VALUES (${p.name}, ${p.price}, ${p.description}, ${p.images}, ${p.tag});
         `;
       }
-      products = await sql`SELECT * FROM productos ORDER BY id ASC;`; // <-- CAMBIADO A ASC
+      // 2. Volvemos a pedir al azar una vez cargados
+      products = await sql`SELECT * FROM productos ORDER BY RANDOM();`; 
     }
 
     return NextResponse.json(products);
