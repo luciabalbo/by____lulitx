@@ -328,7 +328,6 @@ export default function ArchivePage() {
               Array.isArray(products) && products.map((product) => (
                 <motion.div 
                   key={product.id}
-                  // ESTA LÍNEA LIMPIA TODO: minúsculas, quita acentos y cambia espacios por guiones
                   id={product.name
                     .toLowerCase()
                     .normalize("NFD")
@@ -337,11 +336,8 @@ export default function ArchivePage() {
                   }
                   whileInView={{ opacity: 1, y: 0 }} 
                   initial={{ opacity: 0, y: 20 }}
-                  className={styles.product_card}
-                  style={{ 
-                    filter: product.in_stock ? 'none' : 'grayscale(1)',
-                    opacity: product.in_stock ? 1 : 0.5 
-                  }}
+                  // CAMBIO ACÁ: Usamos una clase condicional en lugar de 'style'
+                  className={`${styles.product_card} ${!product.in_stock ? styles.sold_out_card : ''}`}
                 >
                   <ProductGallery images={product.images} />
                   <div className={styles.product_info}>

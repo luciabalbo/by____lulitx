@@ -412,6 +412,60 @@
   border: 1px solid #333;
 }
 
+/* 1. La card agotada solo baja un poco la opacidad general */
+.sold_out_card {
+  opacity: 0.8;
+  /* NO poner filter acá, porque rompe el zoom de los hijos */
+}
+
+/* 2. EL TRUCO: Aplicamos el gris SOLO a la imagen principal de la miniatura */
+.sold_out_card .img_main {
+  filter: grayscale(1) contrast(1.1);
+}
+
+/* 3. Aseguramos que el modal se escape de cualquier filtro */
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 99999; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Reset total para el modal */
+  filter: none !important; 
+}
+
+/* 4. La imagen del zoom siempre full color */
+.img_zoom {
+  filter: grayscale(0) !important;
+  max-width: 90%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.sold_out_card .request_btn {
+  color: #555 !important; /* Un gris oscuro */
+  border-color: #333 !important;
+  cursor: not-allowed;
+  background: rgba(40, 40, 40, 0.2);
+}
+
+/* 3. El texto de [ OUTSIDE_STOCK ] en gris */
+/* (Buscamos el span que tiene el color rojo) */
+.sold_out_card .product_header span:last-child {
+  color: #666 !important; /* Sobreescribimos el rojo var(--color-rojo) */
+}
+
+/* 4. Opcional: El nombre del producto y el precio un poco más apagados */
+.sold_out_card h3, 
+.sold_out_card .price {
+  color: #888;
+}
+
 @media (max-width: 1024px) {
   .product_grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
