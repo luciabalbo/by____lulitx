@@ -7,77 +7,77 @@ const sql = neon(process.env.DATABASE_URL!);
 const INITIAL_PRODUCTS = [
   {
     name: "POLLERA TRANSFORM",
-    price: 33000,
+    price: 40000,
     description: "DESMONTABLE (LARGA | CORTA). CINTURA REGULABLE (60CM-90CM). PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/1.png', '/productos/01.png', '/productos/10.png'],
     tag: "ARCHIVO_01"
   },
   {
     name: "SHORT INTERVENIDO_v44",
-    price: 22000,
+    price: 25000,
     description: "CONSTRUCCIÓN HÍBRIDA SHORT + SHORT. CINTURA 88CM. TALLE 44. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/2.jpg', '/productos/02.png', '/productos/20.png'],
     tag: "ARCHIVO_02"
   },
   {
     name: "VESTIDO V_ctrlZ",
-    price: 55000,
+    price: 60000,
     description: "CONSTRUCCIÓN CASACA + POLLERA. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/3.jpg', '/productos/03.png', '/productos/30.JPG'],
     tag: "ARCHIVO_03"
   },
   {
     name: "PANTALÓN P_ctrlO",
-    price: 70000,
+    price: 75000,
     description: "CONSTRUCCIÓN JEAN + JEAN + LLAVEROS. CINTURA 88CM. TALLE 44. LARGO TOTAL 105COM. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/55.jpg', '/productos/05.png','/productos/5.jpg'],
     tag: "ARCHIVO_04"
   },
   {
     name: "BUZO A_ctrlX",
-    price: 65000,
+    price: 67000,
     description: "CONSTRUCCIÓN BUZO + CADENAS. TALLE M. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/444.png', '/productos/44.png', '/productos/04.png', '/productos/40.png', '/productos/404.png'],
     tag: "ARCHIVO_05"
   },
   {
     name: "PANTALÓN P_ctrlC",
-    price: 67000,
+    price: 70000,
     description: "CONSTRUCCIÓN JEAN + JEAN + ARGOLLAS_DORADAS. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/6.jpg', '/productos/06.png','/productos/60.png', '/productos/66.jpg'],
     tag: "ARCHIVO_06"
   },
   {
     name: "PANTALÓN P_ctrlY",
-    price: 60000,
+    price: 63000,
     description: "CONSTRUCCIÓN JEAN + JEAN. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/7.jpg', '/productos/07.png','/productos/70.png', '/productos/77.jpg'],
     tag: "ARCHIVO_07"
   },
   {
     name: "POLLERA :))))",
-    price: 25000,
+    price: 33000,
     description: "CONSTRUCCIÓN HÍBRIDA + PINTURA. CINTURA 76CM . TALLE 38. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/9.png', '/productos/09.png','/productos/90.png'],
     tag: "ARCHIVO_08"
   },
   {
     name: "CHALECO ctrlC_ctrlV",
-    price: 33000,
+    price: 37000,
     description: "CONSTRUCCIÓN HÍBRIDA. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/8.jpg', '/productos/08.png','/productos/80.png', '/productos/88.jpg'],
     tag: "ARCHIVO_09"
   },
   {
     name: "PANTALÓN P_c404",
-    price: 33000,
+    price: 37000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 80CM. TALLE 40. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/001.jpg', '/productos/100.PNG','/productos/010.jpg'],
     tag: "ARCHIVO_10"
   },
   {
     name: "POLLERA SHORT",
-    price: 40000,
+    price: 44000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 82CM. TALLE 41. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/020.png', '/productos/002.png'],
     tag: "ARCHIVO_11"
@@ -91,7 +91,7 @@ const INITIAL_PRODUCTS = [
   },
   {
     name: "PANTALÓN P_v404",
-    price: 22000,
+    price: 37000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 64CM. TALLE 32. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/004.png', '/productos/040.png', '/productos/400.png'],
     tag: "ARCHIVO_12"
@@ -105,7 +105,7 @@ const INITIAL_PRODUCTS = [
   },
     {
     name: "POLLERA N_404",
-    price: 65000,
+    price: 67000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 72CM. TALLE 36. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/006.png', '/productos/060.png', '/productos/600.png', '/productos/066.png', '/productos/666.png'],
     tag: "ARCHIVO_14"
