@@ -63,7 +63,7 @@ export default function AdminPage() {
 
   return (
     <div style={{ background: '#000', color: '#fff', minHeight: '100vh', padding: '20px', fontFamily: 'monospace' }}>
-      <h1 style={{ borderBottom: '1px solid #333', paddingBottom: '10px' }}>[ LULITX_STOCK_CONTROL ]</h1>
+      <h1 style={{ borderBottom: '1px solid #333', paddingBottom: '10px' }}>[ LULITO_STOCK_CONTROL ]</h1>
       
       {loading ? (
         <p>CONNECTING_TO_DATABASE...</p>

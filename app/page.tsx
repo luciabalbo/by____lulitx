@@ -102,7 +102,7 @@ export default function LulitxStepOneFixed() {
           transition={{ repeat: Infinity, duration: 5, times: [0, 0.05, 0.15, 1], delay: 1 }}
           className={`${styles['side-text']} ${styles['right-txt']}`}
         >
-          ARCHIVE DIGITAL <br /> BY LULITX STUDIO
+          ARCHIVE DIGITAL <br /> BY LULITO STUDIO
         </motion.div>
       </div>
 
@@ -141,7 +141,7 @@ export default function LulitxStepOneFixed() {
                   </div>
                   
                   <div className={styles['card-body']} style={{ transform: "translateZ(40px)" }}>
-                    <h2 className={styles.name}>by lulitx</h2>
+                    <h2 className={styles.name}>by lulito</h2>
                     <p className={styles.edition}>SEE YOU SOON <br /> DROP 001 — 2026</p>
                   </div>
                   

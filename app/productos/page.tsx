@@ -147,7 +147,7 @@ export default function ArchivePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedId = localStorage.getItem('lulitx_user_id');
+    const savedId = localStorage.getItem('lulito_user_id');
     if (savedId) setVisitorId(savedId);
 
     async function fetchProducts() {
@@ -179,7 +179,7 @@ export default function ArchivePage() {
     const phoneNumber = "543534822456";
     
     // 1. Armamos el mensaje igual que antes
-    const intro = `--- COMPRA EN BY____LULITX ---\n`;
+    const intro = `--- COMPRA EN BY____LULITO ---\n`;
     const user = `USER_ID: VISITOR_${visitorId}\n`;
     const items = cart.map(item => `> [${item.name}] - $${item.price}`).join('\n');
     const total = `\nTOTAL_VALUE: $${cart.reduce((acc, item) => acc + item.price, 0)}`;
@@ -399,7 +399,7 @@ export default function ArchivePage() {
           <div className={styles.footer_col}>
             <span className={styles.col_tag}>02_CONNECT</span>
             <h4>[ SOCIAL ]</h4>
-            <a href="https://www.instagram.com/by_________lulitx/" target="_blank" rel="noopener noreferrer" className={styles.footer_link}>
+            <a href="https://www.instagram.com/by_________lulito/" target="_blank" rel="noopener noreferrer" className={styles.footer_link}>
               INSTAGRAM_LINK <span className={styles.arrow}>↗</span>
             </a>
           </div>

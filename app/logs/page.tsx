@@ -5,13 +5,13 @@ import Link from 'next/link';
 import styles from './logs.module.css';
 
 const MANIFIESTO_LINES = [
-  { text: "by____lulitx no es una marca, es un proceso que está en constante movimiento.", color: "white" },
+  { text: "by____lulito no es una marca, es un proceso que está en constante movimiento.", color: "white" },
   { text: "Acá no se diseña: se prueba, se rompe, se vuelve a intentar.", color: "amarillo" },
   { text: "Esto no es diseño, es error con estilo.", color: "azul" },
   { text: "No estamos copiando, estamos reescribiendo el sistema.", color: "rojo" },
   { text: "No seguimos tendencias, las desarmamos. No compramos moda, la reescribimos.", color: "white" },
   { text: "ERROR 404: ESTILO NO ENCONTRADO.", color: "amarillo" },
-  { text: "En by____lulitx no hay talles ni reglas claras.", color: "azul" },
+  { text: "En by____lulito no hay talles ni reglas claras.", color: "azul" },
   { text: "Hay mutaciones, versiones, piezas que no estuvieron nunca y que ahora existen. ", color: "rojo" },
   { text: "Cada pieza tiene historia, cada historia es distinta. ", color: "white" },
   { text: "Cambiamos el modo, rompimos la línea, seguimos jugando.", color: "amarillo" },
@@ -45,7 +45,7 @@ export default function LogsPage() {
       </main>
 
       <footer className={styles.footer}>
-        <p>BY____LULITX // 2026</p>
+        <p>BY____LULITO // 2026</p>
       </footer>
     </div>
   );
