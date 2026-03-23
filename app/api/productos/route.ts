@@ -7,7 +7,7 @@ const sql = neon(process.env.DATABASE_URL!);
 const INITIAL_PRODUCTS = [
   {
     name: "POLLERA TRANSFORM",
-    price: 40000,
+    price: 45000,
     description: "DESMONTABLE (LARGA | CORTA). CINTURA REGULABLE (60CM-90CM). PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/1.png', '/productos/01.png', '/productos/10.png'],
     tag: "ARCHIVO_01"
@@ -21,7 +21,7 @@ const INITIAL_PRODUCTS = [
   },
   {
     name: "VESTIDO V_ctrlZ",
-    price: 60000,
+    price: 65000,
     description: "CONSTRUCCIÓN CASACA + POLLERA. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/3.jpg', '/productos/03.png', '/productos/30.JPG'],
     tag: "ARCHIVO_03"
@@ -56,35 +56,35 @@ const INITIAL_PRODUCTS = [
   },
   {
     name: "POLLERA :))))",
-    price: 33000,
+    price: 40000,
     description: "CONSTRUCCIÓN HÍBRIDA + PINTURA. CINTURA 76CM . TALLE 38. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/9.png', '/productos/09.png','/productos/90.png'],
     tag: "ARCHIVO_08"
   },
   {
     name: "CHALECO ctrlC_ctrlV",
-    price: 37000,
+    price: 44000,
     description: "CONSTRUCCIÓN HÍBRIDA. TALLE L. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/8.jpg', '/productos/08.png','/productos/80.png', '/productos/88.jpg'],
     tag: "ARCHIVO_09"
   },
   {
     name: "PANTALÓN P_c404",
-    price: 37000,
+    price: 43000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 80CM. TALLE 40. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/001.jpg', '/productos/100.PNG','/productos/010.jpg'],
     tag: "ARCHIVO_10"
   },
   {
     name: "POLLERA SHORT",
-    price: 44000,
+    price: 50000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 82CM. TALLE 41. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/020.png', '/productos/002.png'],
     tag: "ARCHIVO_11"
   },
   {
     name: "BERMUDA ESTRELLA",
-    price: 33000,
+    price: 35000,
     description: "CONSTRUCCIÓN HÍBRIDA. CINTURA 90CM. TALLE 45. PIEZA DE ARCHIVO ÚNICA.",
     images: ['/productos/003.JPG', '/productos/030.png', '/productos/300.png', '/productos/303.jpg'],
     tag: "ARCHIVO_12"
